@@ -1,0 +1,5 @@
+# VSCode
+.vscode/
+
+# C Compilation
+build/
