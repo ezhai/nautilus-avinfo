@@ -9,17 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: checkout
-      uses: actions/checkout@v3
-    - name: dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install meson libnautilus-extension-dev libavcodec-dev libavformat-dev libavutil-dev
+      uses: actions/checkout@v4
     - name: build
-      run: |
-        meson setup build
-        meson compile -C build
+      uses: ./actions/fedora-build-docker
+      with:
+        repository: ${{ github.repository }}
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: nautilus-avinfo
-        path: build/nautilus-avinfo.so
+        path:  ${{ github.workspace }}/nautilus-avinfo/build/nautilus-avinfo.so
