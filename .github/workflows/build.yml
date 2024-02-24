@@ -13,7 +13,7 @@ jobs:
     - name: build
       uses: ./.github/actions/fedora-build-docker
       with:
-        repository: ${{ github.repository }}
+        repository: "https://github.com/${{ github.repository }}.git"
     - name: upload
       uses: actions/upload-artifact@v4
       with:
