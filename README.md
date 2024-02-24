@@ -9,7 +9,7 @@ nautilus --version
 ```
 
 ## Installation
-The extension is provided as a package for the following distros. If it is not available for your distro's package manager, it will need to be installed manually. 
+The extension is provided as a package for several package managers. If it is not available for your distro's package manager, it will need to be installed manually. 
 
 ### RPM (Fedora, CentOS, RHEL, etc..)
 A `.rpm` package is available for download on the Releases page. Download the package and install it.
@@ -18,11 +18,15 @@ A `.rpm` package is available for download on the Releases page. Download the pa
 ```
 
 ### Manual
-Ensure you have `meson` installed. Then build and install the project.
+Ensure you have `meson` and the appropriate development headers installed. Then build and install the project.
 ```
 meson setup build
 meson install -C build
 ```
+
+To uninstall, remove the following files.
+- `${libdir}/nautilus/extensions-4/nautilus-avinfo.so`
+- `${localedir}/${lang}/LC_MESSAGES/nautilus-avinfo.mo`
 
 ### Manual (Psychotic)
 Download `nautilus-avinfo.so` from the Releases page. Copy it to `${libdir}/nautilus/extensions-4`.

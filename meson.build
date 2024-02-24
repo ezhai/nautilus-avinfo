@@ -19,9 +19,23 @@ configure_file(
     configuration: conf_data,
 )
 
+## DEPENDENCIES
+libnautilus = dependency('libnautilus-extension', required : false)
+if not libnautilus.found()
+    libnautilus = dependency('libnautilus-extension-4')
+endif
+libavcodec = dependency('libavcodec')
+libavformat = dependency('libavformat')
+libavutil = dependency('libavutil')
+
 ## BUILD
 src = files()
-deps = [dependency('libnautilus-extension-4'), dependency('libavcodec'), dependency('libavformat'), dependency('libavutil'), dependency('threads')]
+deps = [
+    libnautilus,
+    libavcodec,
+    libavformat,
+    libavutil,
+]
 
 subdir('src')
 subdir('po')
