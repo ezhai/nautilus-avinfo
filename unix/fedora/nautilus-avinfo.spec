@@ -5,7 +5,7 @@ Version:        0.1
 Release:        1%{?dist}
 Summary:        Nautilus extension for audio and video info
 
-License:        GPLv3
+License:        GPLv3+
 URL:            https://github.com/ezhai/nautilus-avinfo
 Source0:        SOURCES/%{name}-%{version}.tar.gz
 

@@ -13,10 +13,9 @@ jobs:
     - name: build
       uses: ./.github/actions/fedora-build-docker
       with:
-        repository: "https://github.com/${{ github.repository }}.git"
         version: "0.1"
     - name: upload
       uses: actions/upload-artifact@v4
       with:
-        name: nautilus-avinfo-build
-        path:  ${{ github.workspace }}
+        name: nautilus-avinfo-rpm
+        path:  ${{ github.workspace }}/rpm
