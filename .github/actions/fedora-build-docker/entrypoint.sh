@@ -1,8 +1,10 @@
 #!/bin/sh -l
 
 repository=${1}
+version=${2}
 
-cd /github/workspace
+mkdir -p /github/workspace
+
 git clone "${repository}"
 cd nautilus-avinfo
 if [[ $? -ne 0 ]]; then
@@ -12,6 +14,24 @@ fi
 
 meson setup build
 meson compile -C build
+if [[ $? -ne 0 ]]; then
+    echo "Failed to compile"
+    exit 1
+fi
+cp build/nautilus-avinfo.so /github/workspace/
 
-ls build -l
-echo "Compilation complete"
+pkgname="nautilus-avinfo-${version}"
+mkdir "${pkgname}"
+cp build/nautilus-avinfo.so "${pkgname}/"
+tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
+
+rpmdev-setuptree
+mv "${pkgname}.tar.gz" ~/rpmbuild/SOURCES/
+cp unix/fedora/nautilus-avinfo.spec ~/rpmbuild/SPECS/
+cd ~/rpmbuild
+
+rpmbuild -bb "SPECS/nautilus-avinfo.spec"
+cp RPMS/* /github/workspace/
+
+
+ls -la /github/workspace

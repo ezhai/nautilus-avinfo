@@ -1,6 +1,6 @@
 project('nautilus-avinfo', 'c',
     default_options : ['buildtype=release', 'prefix=/usr'],
-    version : '0.0.0',
+    version : '0.1',
 )
 
 ## DIRECTORIES
@@ -19,22 +19,14 @@ configure_file(
     configuration: conf_data,
 )
 
-## DEPENDENCIES
-libnautilus = dependency('libnautilus-extension', required : false)
-if not libnautilus.found()
-    libnautilus = dependency('libnautilus-extension-4')
-endif
-libavcodec = dependency('libavcodec')
-libavformat = dependency('libavformat')
-libavutil = dependency('libavutil')
-
 ## BUILD
 src = files()
 deps = [
-    libnautilus,
-    libavcodec,
-    libavformat,
-    libavutil,
+    dependency('libnautilus-extension-4'),
+    dependency('libavcodec'),
+    dependency('libavformat'),
+    dependency('libavutil'),
+    dependency('threads'),
 ]
 
 subdir('src')
