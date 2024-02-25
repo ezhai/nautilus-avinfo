@@ -1,7 +1,7 @@
 %define         debug_package %{nil}
 
 Name:           nautilus-avinfo
-Version:        0.1
+Version:        0.0.0
 Release:        1%{?dist}
 Summary:        Nautilus extension for audio and video info
 
@@ -27,5 +27,5 @@ cp nautilus-avinfo.so  %{buildroot}/%{_libdir}/nautilus/extensions-4/
 %{_libdir}/nautilus/extensions-4/nautilus-avinfo.so
 
 %changelog
-* Sat Feb 24 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.1-1
+* Sat Feb 24 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.0.0-1
 - Intial RPM package
