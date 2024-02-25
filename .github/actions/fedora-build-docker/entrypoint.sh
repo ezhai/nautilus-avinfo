@@ -4,9 +4,12 @@ repository=${1}
 version=${2}
 
 mkdir -p /github/workspace
+pwd
 
 git clone "${repository}"
 cd nautilus-avinfo
+git checkout main-dummy
+
 if [[ $? -ne 0 ]]; then
     echo "Failed to checkout repository"
     exit 1
