@@ -21,8 +21,10 @@ fi
 version=$(meson introspect  build --projectinfo | jq -r ".version")
 pkgname="nautilus-avinfo-${version}"
 
-mkdir "${pkgname}"
-cp build/nautilus-avinfo.so "${pkgname}/"
+git clone https://github.com/ezhai/nautilus-avinfo.git "${pkgname}/"
+cd "${pkgname}/"
+git checkout main-dummy
+cd ..
 tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
 
 rpmdev-setuptree
@@ -36,3 +38,6 @@ cd /github/workspace
 
 mkdir /github/workspace/rpm
 cp $(find ~/rpmbuild/RPMS/ -regex ".*\.rpm") /github/workspace/rpm/
+
+
+ls -l /github/workspace/rpm
