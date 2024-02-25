@@ -1,11 +1,5 @@
 name: 'Fedora Build'
 description: 'Build the RPM for nautilus-avinfo'
-inputs:
-  version:
-    description: 'nautilus-avinfo version'
-    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - '${{ inputs.version }}'

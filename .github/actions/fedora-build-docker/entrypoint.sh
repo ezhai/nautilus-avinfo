@@ -1,7 +1,5 @@
 #!/bin/sh
 
-version=${1}
-
 git status > /dev/null 2>&1
 if [[ $? -ne 0 ]]; then
     mkdir -p /github/workspace
@@ -20,7 +18,9 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
+version=$(meson introspect  build --projectinfo | jq -r ".version")
 pkgname="nautilus-avinfo-${version}"
+
 mkdir "${pkgname}"
 cp build/nautilus-avinfo.so "${pkgname}/"
 tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
@@ -29,9 +29,10 @@ rpmdev-setuptree
 mv "${pkgname}.tar.gz" ~/rpmbuild/SOURCES/
 cp unix/fedora/nautilus-avinfo.spec ~/rpmbuild/SPECS/
 
-cd ~/rpmbuild
-rpmbuild -bs "SPECS/nautilus-avinfo.spec"
-rpmbuild --rebuild "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
+cd ~/rpmbuild/SPECS
+rpmbuild -bs "nautilus-avinfo.spec"
+rpmbuild --rebuild "$(find . -regex ".*\.src\.rpm")"
+cd /github/workspace
 
 mkdir /github/workspace/rpm
 cp $(find ~/rpmbuild/RPMS/ -regex ".*\.rpm") /github/workspace/rpm/
