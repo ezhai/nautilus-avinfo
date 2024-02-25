@@ -7,7 +7,6 @@ inputs:
   version:
     description: 'nautilus-avinfo version'
     required: true
-outputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
