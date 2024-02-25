@@ -33,7 +33,12 @@ cat unix/fedora/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/
 
 cd ~/rpmbuild
 rpmbuild -bs "SPECS/nautilus-avinfo.spec"
-rpmbuild --rebuild "$(find SRPMS -regex ".*\.src\.rpm")"
+echo $(find SRPMS -regex ".*\.src\.rpm")
+mock -r fedora-39-aarch64 --shell "/usr/bin/rpm -qa"
+mock -r fedora-39-aarch64 --enable-network --install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-39.noarch.rpm
+mock -r fedora-39-aarch64 --enable-network --shell "rpm -i ffmpeg-devel"
+mock -r fedora-39-aarch64 --enable-network "$(find SRPMS -regex ".*\.src\.rpm")" 
+# rpmbuild --rebuild "$(find SRPMS -regex ".*\.src\.rpm")"
 cd /github/workspace
 
 mkdir /github/workspace/rpm
