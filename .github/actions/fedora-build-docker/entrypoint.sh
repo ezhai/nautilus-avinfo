@@ -27,11 +27,11 @@ tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
 
 rpmdev-setuptree
 mv "${pkgname}.tar.gz" ~/rpmbuild/SOURCES/
-cp unix/fedora/nautilus-avinfo.spec ~/rpmbuild/SPECS/
+cat unix/fedora/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/rpmbuild/SPECS/nautilus-avinfo.spec
 
-cd ~/rpmbuild/SPECS
-rpmbuild -bs "nautilus-avinfo.spec"
-rpmbuild --rebuild "$(find . -regex ".*\.src\.rpm")"
+cd ~/rpmbuild
+rpmbuild -bs "SPECS/nautilus-avinfo.spec"
+rpmbuild --rebuild "$(find SRPMS -regex ".*\.src\.rpm")"
 cd /github/workspace
 
 mkdir /github/workspace/rpm
