@@ -10,14 +10,14 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v4
-    - name: qemu-install
+    - name: apt-install
       run: sudo apt-get install -y qemu-user-static
     - name: docker-build
-      run: docker build .github/actions/fedora-build-docker -t fedora-build
+      run: docker build .github/docker/fedora-build -t fedora-build
     - name: docker-run
       run: docker run --privileged -v ${{ github.workspace }}:/github fedora-build ${{ github.ref_name }}
     - name: upload
       uses: actions/upload-artifact@v4
       with:
-        name: nautilus-avinfo-srpm
+        name: nautilus-avinfo-rpm
         path:  ${{ github.workspace }}/rpm
