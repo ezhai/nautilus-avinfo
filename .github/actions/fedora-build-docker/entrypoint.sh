@@ -29,20 +29,11 @@ tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
 
 rpmdev-setuptree
 mv "${pkgname}.tar.gz" ~/rpmbuild/SOURCES/
-cat unix/fedora/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/rpmbuild/SPECS/nautilus-avinfo.spec
+cat unix/rpm/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/rpmbuild/SPECS/nautilus-avinfo.spec
 
 cd ~/rpmbuild
 rpmbuild -bs "SPECS/nautilus-avinfo.spec"
-echo $(find SRPMS -regex ".*\.src\.rpm")
-mock -r fedora-39-aarch64 --shell "/usr/bin/rpm -qa"
-mock -r fedora-39-aarch64 --enable-network --install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-39.noarch.rpm
-mock -r fedora-39-aarch64 --enable-network --shell "rpm -i ffmpeg-devel"
-mock -r fedora-39-aarch64 --enable-network "$(find SRPMS -regex ".*\.src\.rpm")" 
-# rpmbuild --rebuild "$(find SRPMS -regex ".*\.src\.rpm")"
 cd /github/workspace
 
-mkdir /github/workspace/rpm
-cp $(find ~/rpmbuild/RPMS/ -regex ".*\.rpm") /github/workspace/rpm/
-
-
-ls -l /github/workspace/rpm
+mkdir /github/workspace/srpm
+cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /github/workspace/srpm/

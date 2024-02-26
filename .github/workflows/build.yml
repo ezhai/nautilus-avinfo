@@ -15,5 +15,5 @@ jobs:
     - name: upload
       uses: actions/upload-artifact@v4
       with:
-        name: nautilus-avinfo-rpm
-        path:  ${{ github.workspace }}/rpm
+        name: nautilus-avinfo-srpm
+        path:  ${{ github.workspace }}/srpm
