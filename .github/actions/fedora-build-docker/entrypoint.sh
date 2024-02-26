@@ -33,7 +33,9 @@ cat pkg/rpm/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/rpmb
 cd ~/rpmbuild
 rpmbuild -bs "SPECS/nautilus-avinfo.spec"
 mock -r fedora-39-aarch64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
+mock -r fedora-39-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
 mkdir -p /github/rpm/
 cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /github/rpm
 cp $(find /var/lib/mock/fedora-39-aarch64/result/ -regex ".*\.rpm") /github/rpm
+cp $(find /var/lib/mock/fedora-39-x86_64/result/ -regex ".*\.rpm") /github/rpm
