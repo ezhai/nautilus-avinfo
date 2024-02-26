@@ -1,14 +1,14 @@
 #!/bin/sh
 
-git status > /dev/null 2>&1
-if [[ $? -ne 0 ]]; then
-    mkdir -p /github/workspace
-    cd /github/workspace
+branch=${1}
 
-    git init
-    git remote add origin https://github.com/ezhai/nautilus-avinfo.git
-    git fetch --all
-    git checkout main-dummy
+
+git clone https://github.com/ezhai/nautilus-avinfo.git
+cd nautilus-avinfo
+git checkout "${branch}"
+if [[ $? -ne 0 ]]; then
+    echo "Branch \"${branch}\" does not exist"
+    exit 1
 fi
 
 meson setup build
@@ -23,17 +23,18 @@ pkgname="nautilus-avinfo-${version}"
 
 git clone https://github.com/ezhai/nautilus-avinfo.git "${pkgname}/"
 cd "${pkgname}/"
-git checkout main-dummy
+git checkout "${branch}"
 cd ..
 tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
 
 rpmdev-setuptree
 mv "${pkgname}.tar.gz" ~/rpmbuild/SOURCES/
-cat unix/rpm/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/rpmbuild/SPECS/nautilus-avinfo.spec
+cat pkg/rpm/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/rpmbuild/SPECS/nautilus-avinfo.spec
 
 cd ~/rpmbuild
 rpmbuild -bs "SPECS/nautilus-avinfo.spec"
-cd /github/workspace
+mock -r fedora-39-aarch64-rpmfusion_free --enable-network "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
-mkdir /github/workspace/srpm
-cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /github/workspace/srpm/
+mkdir -p /out
+cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /out/
+cp $(find /var/lib/mock/fedora-39-aarch64/result/ -regex ".*\.rpm") /out/

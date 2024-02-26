@@ -10,10 +10,12 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v4
-    - name: build
-      uses: ./.github/actions/fedora-build-docker
+    - name: docker-build
+      run: docker build .github/actions/fedora-build-docker -t fedora-build
+    - name: docker-run
+      run: docker run --privileged -v ${{ github.workspace }}:/out fedora-build ${{ github.ref_name }}
     - name: upload
       uses: actions/upload-artifact@v4
       with:
         name: nautilus-avinfo-srpm
-        path:  ${{ github.workspace }}/srpm
+        path:  ${{ github.workspace }}/rpm

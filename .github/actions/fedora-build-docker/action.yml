@@ -3,4 +3,6 @@ description: 'Build the RPM for nautilus-avinfo'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - '${{ github.ref }}'
 
