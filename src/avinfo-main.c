@@ -31,8 +31,8 @@ nautilus_module_initialize(GTypeModule *module)
     g_queue_init(&queue);   
     
     data = g_new0(AVInfoExtensionClassData, 1);
-    data->cv = &cv;
     data->lk = &lk;
+    data->cv = &cv;
     data->queue = &queue;
 
     avinfo_extension_register_type(module, data);
