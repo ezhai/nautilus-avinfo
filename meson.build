@@ -1,6 +1,6 @@
 project('nautilus-avinfo', 'c',
     default_options : ['buildtype=release', 'prefix=/usr'],
-    version : '0.0.0',
+    version : '0.1.0',
 )
 
 ## DIRECTORIES
