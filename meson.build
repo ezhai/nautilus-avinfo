@@ -1,6 +1,6 @@
 project('nautilus-avinfo', 'c',
     default_options : ['buildtype=release', 'prefix=/usr'],
-    version : '0.1.0',
+    version : '0.1.1',
 )
 
 ## DIRECTORIES
@@ -11,7 +11,6 @@ extensiondir = join_paths(libdir, 'nautilus', 'extensions-4')
 
 ## CONFIGURATION
 conf_data = configuration_data()
-conf_data.set('DEBUG', 0)
 conf_data.set_quoted('PACKAGE', meson.project_name())
 conf_data.set_quoted('LOCALEDIR', localedir)
 configure_file(

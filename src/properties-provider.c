@@ -100,8 +100,17 @@ avinfo_extension_get_models(NautilusPropertiesModelProvider *provider,
         return NULL;
     }
 
+    char *file_path = g_file_get_path(nautilus_file_info_get_location(file));
+    if (file_path == NULL) {
+        return NULL;
+    }
+
     AVFormatContext *ctx = avformat_alloc_context();
-    avformat_open_input(&ctx, g_file_get_path(nautilus_file_info_get_location(file)), NULL, NULL);
+    int retcode = avformat_open_input(&ctx, file_path, NULL, NULL);
+    if (retcode != 0) {
+        avformat_free_context(ctx);
+        return NULL;
+    }
     avformat_find_stream_info(ctx, NULL);
 
     GListStore *items = g_list_store_new(NAUTILUS_TYPE_PROPERTIES_ITEM);

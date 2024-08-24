@@ -1,4 +1,4 @@
-FROM fedora:39
+FROM fedora:40
 
 RUN dnf install -y git gcc meson nautilus-devel ffmpeg-free-devel gettext rpm-build rpmdevtools mock wget jq
 

@@ -6,8 +6,7 @@ only compatible with Nautilus 43+.
 nautilus --version
 ```
 
-This extension makes use of FFmpeg's `libavformat` library, so the information of the properties page is similar to the
-output of`ffprobe`.
+This extension makes use of FFmpeg's `libavformat` library to provide information about media files.
 
 
 ## Installation
@@ -20,7 +19,8 @@ RPM package and install it.
 ```
 
 The SRPMs are also provided if your OS/arch is not supported or you wish to build the package yourself. Note that not all
-distros support the latest version of Nautilus, so the extension may not be supported on your distro just yet.
+distros have Nautilus 43 or higher available in the package repository, so the extension may not be supported on your distro
+just yet.
 
 
 ### Manual
@@ -29,6 +29,9 @@ Ensure you have `meson` and the appropriate development headers installed. Then 
 meson setup build
 meson install -C build
 ```
+
+To uninstall, remove `nautilus-avinfo.so` from `$(libdir)/nautilus/extensions-4/`. The location of `libdir` varies by distro.
+For example, on Arch Linux it is `/usr/lib`. 
 
 ## Contributions
 If you encounter any issues, have suggestions, or would like to make a contribution (code, translations, etc...), please
@@ -44,6 +47,12 @@ meson install -C build      # install binaries/translation files (requires sudo 
 
 meson compile -C build nautilus-avinfo-pot              # gather strings needed for translations
 meson compile -C build nautilus-avinfo-upgrade-pot      # update strings in the translation files
+```
+
+Some other helpful commands.
+```
+nautilus -q                 # terminate existing nautilus processes
+nautilus                    # start nautilus from the CLI
 ```
 
 ## Additional Notes

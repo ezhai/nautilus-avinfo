@@ -18,8 +18,17 @@ update_file_info(NautilusFileInfo *file)
     char buf[buf_nb];
     int set_audio = FALSE, set_video = FALSE;
 
+    char *file_path = g_file_get_path(nautilus_file_info_get_location(file));
+    if (file_path == NULL) {
+        return;
+    }
+
     AVFormatContext *ctx = avformat_alloc_context();
-    avformat_open_input(&ctx, g_file_get_path(nautilus_file_info_get_location(file)), NULL, NULL);
+    int retcode = avformat_open_input(&ctx, file_path, NULL, NULL);
+    if (retcode != 0) {
+        avformat_free_context(ctx);
+        return;
+    }
     avformat_find_stream_info(ctx, NULL);
 
     nautilus_file_info_add_string_attribute(file, EXT_TOTAL_BITRATE_ATTR, format_bitrate(buf, buf_nb, ctx->bit_rate));
