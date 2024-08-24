@@ -30,10 +30,12 @@ rpmdev-setuptree
 mv "${pkgname}.tar.gz" ~/rpmbuild/SOURCES/
 cat pkg/rpm/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/rpmbuild/SPECS/nautilus-avinfo.spec
 
+sudo yum localinstall --nogpgcheck https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm
+
 cd ~/rpmbuild
 rpmbuild -bs "SPECS/nautilus-avinfo.spec"
-mock -r centos-stream-10-aarch64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
-mock -r centos-stream-10-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
+mock -r centos-stream-10-aarch64 -a "http://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.aarch64/" "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
+mock -r centos-stream-10-x86_64 -a "http://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.x86_64/" "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
 mkdir -p /github/rpm/
 cp $(find ~/rpmbuild/SPECS/ -regex ".*\.spec") /github/rpm
