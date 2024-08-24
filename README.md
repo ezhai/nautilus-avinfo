@@ -6,8 +6,7 @@ only compatible with Nautilus 43+.
 nautilus --version
 ```
 
-This extension makes use of FFmpeg's `libavformat` library, so the information of the properties page is similar to the
-output of`ffprobe`.
+This extension makes use of FFmpeg's `libavformat` library to provide information about media files.
 
 
 ## Installation

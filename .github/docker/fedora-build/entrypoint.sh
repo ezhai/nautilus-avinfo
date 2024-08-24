@@ -17,7 +17,7 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-version=$(meson introspect  build --projectinfo | jq -r ".version")
+version=$(meson introspect build --projectinfo | jq -r ".version")
 pkgname="nautilus-avinfo-${version}"
 
 git clone https://github.com/ezhai/nautilus-avinfo.git "${pkgname}/"
