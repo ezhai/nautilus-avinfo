@@ -35,9 +35,10 @@ cat pkg/rpm/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/rpmb
 # Build RPM
 cd ~/rpmbuild
 rpmbuild -bs "SPECS/nautilus-avinfo.spec"
-mock -r centos-stream-10-aarch64 --install "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
-mock -r centos-stream-10-aarch64 --install "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm"
-mock -r centos-stream-10-aarch64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
+mock -r centos-stream-10-aarch64 --init
+mock -r centos-stream-10-aarch64 --no-bootstrap-image --install "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
+mock -r centos-stream-10-aarch64 --no-bootstrap-image --install "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm"
+mock -r centos-stream-10-aarch64 --no-bootstrap-image "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
 mock -r centos-stream-10-rpmfusion-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
