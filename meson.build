@@ -21,7 +21,7 @@ configure_file(
 ## BUILD
 src = files()
 deps = [
-    dependency('libnautilus-extension-4', 'libnautilus-extension'),
+    dependency('libnautilus-extension-4'),
     dependency('libavcodec'),
     dependency('libavformat'),
     dependency('libavutil'),
