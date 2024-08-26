@@ -1,7 +1,7 @@
 # Nautilus AVInfo
 
 A Nautilus (GNOME Files) extension to view audio/video information in the column and properties view. This extension is
-only compatible with Nautilus 43+.
+only compatible with Nautilus versions 43+.
 ```
 nautilus --version
 ```
@@ -15,12 +15,11 @@ This extension makes use of FFmpeg's `libavformat` library to provide informatio
 A `.rpm` package for your OS and architecture may be available for download on the Releases page. Download the appropriate
 RPM package and install it.
 ```
-(sudo) dnf install <path/to/nautilus-avinfo.rpm>
+dnf install <path/to/nautilus-avinfo.rpm>
 ```
 
 The SRPMs are also provided if your OS/arch is not supported or you wish to build the package yourself. Note that not all
-distros have Nautilus 43 or higher available in the package repository, so the extension may not be supported on your distro
-just yet.
+distros have Nautilus 43 or higher available, so the extension may not be supported on your distro as of now.
 
 
 ### Manual

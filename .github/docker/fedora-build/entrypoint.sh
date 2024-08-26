@@ -37,15 +37,10 @@ cat pkg/rpm/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/rpmb
 cd ~/rpmbuild
 rpmbuild -bs "SPECS/nautilus-avinfo.spec"
 
-# Centos 9
-# mock -r centos-stream-9-aarch64 --install "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
-# mock -r centos-stream-9-aarch64 --install "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm"
-# mock -r centos-stream-9-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
-
 # EPEL 9
-mock -r epel-9-aarch64 --install "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
-mock -r epel-9-aarch64 --install "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm"
-mock -r epel-9-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
+# mock -r centos-stream+epel-9-aarch64 --install "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
+# mock -r centos-stream+epel-9-aarch64 --install "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm"
+# mock -r centos-stream+epel-9-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
 # Fedora 40
 mock -r fedora-40-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
