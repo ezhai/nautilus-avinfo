@@ -35,15 +35,14 @@ cat pkg/rpm/nautilus-avinfo.spec.template | VERSION=${version} envsubst > ~/rpmb
 # Build RPM
 cd ~/rpmbuild
 rpmbuild -bs "SPECS/nautilus-avinfo.spec"
-mock -r centos-stream-10-aarch64 --init
-mock -r centos-stream-10-aarch64 --no-bootstrap-image --install "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
-mock -r centos-stream-10-aarch64 --no-bootstrap-image --install "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm"
-mock -r centos-stream-10-aarch64 --no-bootstrap-image "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
-mock -r centos-stream-10-rpmfusion-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
+mock -r centos-stream-9-aarch64 --install "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
+mock -r centos-stream-9-aarch64 --install "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm"
+mock -r centos-stream-9-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
+
+mock -r fedora-40-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
 mkdir -p /github/rpm/
 cp $(find ~/rpmbuild/SPECS/ -regex ".*\.spec") /github/rpm
 cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /github/rpm
-cp $(find /var/lib/mock/centos-stream-10-aarch64/result/ -regex ".*\.rpm") /github/rpm
-cp $(find /var/lib/mock/centos-stream-10-x86_64/result/ -regex ".*\.rpm") /github/rpm
+cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
