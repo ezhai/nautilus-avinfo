@@ -40,9 +40,10 @@ open an issue or submit a PR.
 ## Development
 This project uses the Meson build system.
 ```
-meson setup build           # setup build directory
-meson compile -C build      # compile project
-meson install -C build      # install binaries/translation files (requires sudo privileges)
+meson setup build                                       # setup build directory
+meson compile -C build                                  # compile project
+meson install -C build                                  # install binaries/translation files (requires sudo privileges)
+meson compile -C build nautilus-avinfo-uninstall        # uninstall binaries/translation files (requires sudo privileges)
 
 meson compile -C build nautilus-avinfo-pot              # gather strings needed for translations
 meson compile -C build nautilus-avinfo-upgrade-pot      # update strings in the translation files
