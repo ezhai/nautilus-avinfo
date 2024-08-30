@@ -23,14 +23,14 @@ meson setup build
 meson compile -C build
 
 %install
-./scripts/install.sh "%{buildroot}/%{_libdir}" "%{buildroot}/{%_datadir}/locale"
+./scripts/install.sh "%{buildroot}/%{_libdir}" "%{buildroot}/%{_datadir}/locale"
 
 %files
 %{_libdir}/nautilus/extensions-4/nautilus-avinfo.so
 %{_datadir}/locale/*/LC_MESSAGES/nautilus-avinfo.mo
 
 %changelog
-* Mon Aug 23 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.1.1-1
+* Fri Aug 23 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.1.1-1
 - fix segfault when ffmpeg fails to read media file info
 
 * Mon Feb 26 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.1.0-1
