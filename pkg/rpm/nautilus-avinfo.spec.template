@@ -2,7 +2,7 @@
 
 Name:           nautilus-avinfo
 Version:        ${VERSION}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Nautilus extension for audio and video info
 
 License:        GPLv3+
@@ -30,6 +30,9 @@ meson compile -C build
 %{_datadir}/locale/*/LC_MESSAGES/nautilus-avinfo.mo
 
 %changelog
+* Fri Aug 30 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.1.1-2
+- install translation files
+
 * Fri Aug 23 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.1.1-1
 - fix segfault when ffmpeg fails to read media file info
 
