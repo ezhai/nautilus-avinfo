@@ -1,0 +1,3 @@
+# VitePress
+node_modules/
+docs/.vitepress/cache

@@ -7,7 +7,7 @@
 
 This extension is only compatible with Nautilus 43+.
 ```
-nautilus --version.
+nautilus --version
 ```
 
 ---
@@ -44,10 +44,10 @@ meson compile -C build uninstall-nautilus-avinfo
 ### Notes
 
 The following files are installed.
-- `$(libdir)/nautilus/extensions-4/nautilus-avinfo.so`.
-- `$(localedir)/*/LC_MESSAGES/nautilus-avinfo.mo`.
+- `$(libdir)/nautilus/extensions-4/nautilus-avinfo.so`
+- `$(localedir)/*/LC_MESSAGES/nautilus-avinfo.mo`
 
-The location of `libdir` and `localedir` may vary by distro.
+The location of `libdir` and `localedir` may vary by distro. See the table below for examples.
 | Distro       | `libdir`     | `localedir`         |
 | ------------ | ------------ | ------------------- |
 | Arch Linux   | `/usr/lib`   | `/usr/share/locale` |
