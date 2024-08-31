@@ -7,7 +7,7 @@ Summary:        Nautilus extension for audio and video info
 
 License:        GPLv3+
 URL:            https://github.com/ezhai/nautilus-avinfo
-Source0:        SOURCES/%{name}-%{version}.tar.gz
+Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  gcc meson gettext
 BuildRequires:  pkgconfig(libnautilus-extension-4)
