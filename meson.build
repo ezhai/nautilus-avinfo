@@ -31,7 +31,7 @@ deps = [
 subdir('src')
 subdir('po')
 
-## TARGET
+## TARGETS
 shared_library('nautilus-avinfo', src,
     include_directories : include_directories('.'),
     dependencies : deps,

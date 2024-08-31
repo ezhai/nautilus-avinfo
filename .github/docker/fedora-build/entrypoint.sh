@@ -22,7 +22,7 @@ meson compile -C build rpm-spec
 version=$(meson introspect build --projectinfo | jq -r ".version")
 pkgname="nautilus-avinfo-${version}"
 
-# Set up a clean source
+# Create an archive from a clean source
 git clone https://github.com/ezhai/nautilus-avinfo.git "${pkgname}/"
 cd "${pkgname}/"
 git checkout "${branch}"
@@ -34,26 +34,22 @@ tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
 rpmdev-setuptree
 mv "${pkgname}.tar.gz" ~/rpmbuild/SOURCES/
 
-# Set up Fedora SRPM
-cp pkg/rpm/nautilus-avinfo.fc.spec ~/rpmbuild/SPECS/nautilus-avinfo.spec
+# Set up RPM specs
+cp pkg/rpm/nautilus-avinfo.*.spec ~/rpmbuild/SPECS/
 cd ~/rpmbuild
-rpmbuild -bs "SPECS/nautilus-avinfo.spec"
 
-# Build Fedora and CentOS RPM
+# Build Fedora
+rpmbuild -bs "SPECS/nautilus-avinfo.fc.spec" --define "dist .f40"
+mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.f40\.src\.rpm")"
+
+# Build CentOS
 # mock -r centos-stream+epel-9-aarch64 --install "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
 # mock -r centos-stream+epel-9-aarch64 --install "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm"
 # mock -r centos-stream+epel-9-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
-mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
-cd ..
 
-# Set up OpenSUSE SRPM
-cp pkg/rpm/nautilus-avinfo.opensuse.spec ~/rpmbuild/SPECS/nautilus-avinfo.spec
-cd ~/rpmbuild
-rpmbuild -bs "SPECS/nautilus-avinfo.spec"
-
-# Build OpenSUSE RPM
-mock -r opensuse-tumbleweed-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
-cd ..
+# Build OpenSUSE
+rpmbuild -bs "SPECS/nautilus-avinfo.opensuse.spec" --define "dist .opensuse"
+mock -r opensuse-tumbleweed-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.opensuse\.src\.rpm")"
 
 # Upload artifacts
 mkdir -p /github/rpm/
