@@ -37,7 +37,7 @@ rpmdev-setuptree
 mv "${pkgname}.tar.gz" ~/rpmbuild/SOURCES/
 
 # Set up RPM specs
-cp pkg/rpm/nautilus-avinfo.*.spec ~/rpmbuild/SPECS/
+cp pkg/rpm/nautilus-avinfo.spec ~/rpmbuild/SPECS/
 cd ~/rpmbuild
 
 # Build Fedora
