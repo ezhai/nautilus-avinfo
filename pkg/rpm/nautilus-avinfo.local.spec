@@ -1,7 +1,7 @@
 %define         debug_package %{nil}
 
 Name:           nautilus-avinfo
-Version:        ${VERSION}
+Version:        0.1.1
 Release:        2%{?dist}
 Summary:        Nautilus extension for audio and video info
 
