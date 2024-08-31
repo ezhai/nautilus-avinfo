@@ -39,8 +39,8 @@ cp pkg/rpm/nautilus-avinfo.*.spec ~/rpmbuild/SPECS/
 cd ~/rpmbuild
 
 # Build Fedora
-rpmbuild -bs "SPECS/nautilus-avinfo.fc.spec" --define "dist .f40"
-mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.f40\.src\.rpm")"
+rpmbuild -bs "SPECS/nautilus-avinfo.fc.spec" --define "dist .fc40"
+mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.fc40\.src\.rpm")"
 
 # Build CentOS
 # mock -r centos-stream+epel-9-aarch64 --install "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
@@ -48,8 +48,8 @@ mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.f40\.src\.rpm")"
 # mock -r centos-stream+epel-9-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
 # Build OpenSUSE
-rpmbuild -bs "SPECS/nautilus-avinfo.opensuse.spec" --define "dist .opensuse"
-mock -r opensuse-tumbleweed-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.opensuse\.src\.rpm")"
+rpmbuild -bs "SPECS/nautilus-avinfo.opensuse.spec" --define "dist .suse.tw"
+mock -r opensuse-tumbleweed-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
 
 # Upload artifacts
 mkdir -p /github/rpm/
