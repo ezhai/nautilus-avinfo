@@ -7,9 +7,9 @@ Summary:        Nautilus extension for audio and video info
 
 License:        GPLv3+
 URL:            https://github.com/ezhai/nautilus-avinfo
-Source0:        https://github.com/ezhai/nautilus-avinfo/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{name}-%{version}.tar.gz
 
-BuildRequires:  gcc meson gettext python-jinja2
+BuildRequires:  gcc meson gettext
 BuildRequires:  pkgconfig(libnautilus-extension-4)
 BuildRequires:  pkgconfig(libavcodec) pkgconfig(libavformat) pkgconfig(libavutil)
 Requires:       nautilus >= 43 (ffmpeg or ffmpeg-free)
@@ -18,7 +18,7 @@ Requires:       nautilus >= 43 (ffmpeg or ffmpeg-free)
 A Nautilus extension for viewing audio and video information.
 
 %prep
-%autosetup -n %{name}-%{version}
+%setup -q
 
 %build
 meson setup build
