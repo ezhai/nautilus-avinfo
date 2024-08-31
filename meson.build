@@ -39,3 +39,7 @@ shared_library('nautilus-avinfo', src,
     install : true,
     install_dir : extensiondir,
 )
+
+run_target('nautilus-avinfo-uninstall',
+    command : ['scripts/uninstall.sh', libdir, localedir],
+)

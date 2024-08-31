@@ -43,7 +43,7 @@ rpmbuild -bs "SPECS/nautilus-avinfo.spec"
 # mock -r centos-stream+epel-9-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
 # Fedora 40
-mock -r fedora-40-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
+mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
 # Upload artifacts
 mkdir -p /github/rpm/
