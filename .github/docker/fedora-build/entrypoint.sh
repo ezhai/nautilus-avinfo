@@ -2,7 +2,7 @@
 
 branch=${1}
 
-# Build project
+# Checkout project
 git clone https://github.com/ezhai/nautilus-avinfo.git
 cd nautilus-avinfo
 git checkout "${branch}"
@@ -11,6 +11,7 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
+# Build project
 meson setup build
 meson compile -C build
 if [[ $? -ne 0 ]]; then
@@ -29,6 +30,7 @@ git checkout "${branch}"
 rm -rf .github docs pkg
 cd ..
 tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
+rm -rf "${pkgname}/"
 
 # Set up RPM build directory
 rpmdev-setuptree
@@ -39,7 +41,7 @@ cp pkg/rpm/nautilus-avinfo.*.spec ~/rpmbuild/SPECS/
 cd ~/rpmbuild
 
 # Build Fedora
-rpmbuild -bs "SPECS/nautilus-avinfo.fc.spec" --define "dist .fc40"
+rpmbuild -bs "SPECS/nautilus-avinfo.spec" --define "dist .fc40"
 mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.fc40\.src\.rpm")"
 
 # Build CentOS
@@ -48,7 +50,7 @@ mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.fc40\.src\.rpm")"
 # mock -r centos-stream+epel-9-aarch64 --no-clean "$(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm")"
 
 # Build OpenSUSE
-rpmbuild -bs "SPECS/nautilus-avinfo.opensuse.spec" --define "dist .suse.tw"
+rpmbuild -bs "SPECS/nautilus-avinfo.spec" --define "dist .suse.tw"
 mock -r opensuse-tumbleweed-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
 
 # Upload artifacts
