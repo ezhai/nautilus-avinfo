@@ -1,7 +1,7 @@
 %define         debug_package %{nil}
 
 Name:           nautilus-avinfo
-Version:        ${VERSION}
+Version:        0.1.1
 Release:        2%{?dist}
 Summary:        Nautilus extension for audio and video info
 
@@ -9,7 +9,7 @@ License:        GPLv3+
 URL:            https://github.com/ezhai/nautilus-avinfo
 Source0:        SOURCES/%{name}-%{version}.tar.gz
 
-BuildRequires:  gcc meson nautilus-devel ${FFMPEG_DEV} gettext
+BuildRequires:  gcc meson nautilus-devel ffmpeg-5-libavcodec-devel ffmpeg-5-libavformat-devel ffmpeg-5-libavutil-devel gettext
 Requires:       nautilus >= 43 (ffmpeg or ffmpeg-free)
 
 %description

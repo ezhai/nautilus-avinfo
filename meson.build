@@ -31,7 +31,7 @@ deps = [
 subdir('src')
 subdir('po')
 
-## TARGET
+## TARGETS
 shared_library('nautilus-avinfo', src,
     include_directories : include_directories('.'),
     dependencies : deps,
@@ -42,4 +42,8 @@ shared_library('nautilus-avinfo', src,
 
 run_target('nautilus-avinfo-uninstall',
     command : ['scripts/uninstall.sh', libdir, localedir],
+)
+
+run_target('rpm-spec',
+    command : ['scripts/generate-rpm-spec.sh', meson.project_version(), '@CURRENT_SOURCE_DIR@/pkg/rpm'],
 )
