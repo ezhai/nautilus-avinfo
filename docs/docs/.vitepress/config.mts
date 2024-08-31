@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Nautilus AVInfo",
   description: "Documentation for the Nautilus AVInfo extension.",
+  base: '/nautilus-avinfo/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
