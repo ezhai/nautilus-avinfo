@@ -1,54 +1,15 @@
-# User Guide
+# Nautilus AVInfo
 
-
-## Installation
-
-### Prerequisites
-
-This extension is only compatible with Nautilus 43+.
+A Nautilus (GNOME Files) extension to view audio/video information in the column and properties view. This extension is
+only compatible with Nautilus versions 43+.
 ```
 nautilus --version
 ```
 
----
-
-### RPM (Fedora)
-Pre-packaged RPM files can be found on the [Releases](https://github.com/ezhai/nautilus-avinfo/releases) page.
-```
-dnf install <path/to/nautilus-avinfo.rpm>
-```
-
-A source RPM file is also provided if your OS and architecture is not supported or you wish to build the package yourself.
-```
-rpm -ivh <path/to/nautilus-avinfo.src.rpm>
-```
-
-*Note: Not all distros have Nautilus 43+ available in the package repositories.*
+This extension makes use of FFmpeg's `libavformat` library to provide information about media files.
 
 ---
 
-### Manual
-Ensure you have `meson` and the appropriate development headers installed. Then build and install the project.
-```
-meson setup build
-meson install -C build
-```
+For instructions for installation, see [User Guide - Installation](install).
 
-To uninstall, run the uninstall script using `meson`.
-```
-meson compile -C build uninstall-nautilus-avinfo
-```
-
----
-
-### Notes
-
-The following files are installed.
-- `$(libdir)/nautilus/extensions-4/nautilus-avinfo.so`
-- `$(localedir)/*/LC_MESSAGES/nautilus-avinfo.mo`
-
-The location of `libdir` and `localedir` may vary by distro. See the table below for examples.
-| Distro       | `libdir`     | `localedir`         |
-| ------------ | ------------ | ------------------- |
-| Arch Linux   | `/usr/lib`   | `/usr/share/locale` |
-| Fedora (x64) | `/usr/lib64` | `/usr/share/locale` |
+For instructions for setting up a dev environment, see [Developer Guide - Getting Started](develop).

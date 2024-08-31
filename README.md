@@ -10,55 +10,13 @@ This extension makes use of FFmpeg's `libavformat` library to provide informatio
 
 
 ## Installation
-
-### RPM
-An `.rpm` package for your OS and architecture may be available for download on the Releases page.
-```
-dnf install <path/to/nautilus-avinfo.rpm>
-```
-
-The SRPMs are also provided if your OS/arch is not supported or you wish to build the package yourself. Note that not all
-distros have Nautilus 43+ available in package repositories, so the extension may not be supported on your distro.
+See the (User Guide)[https://ezhai.github.io/nautilus-avinfo/] for details.
 
 
-### Manual
-Ensure you have `meson` and the appropriate development headers installed. Then build and install the project.
-```
-meson setup build
-meson install -C build
-```
-
-To uninstall, remove `nautilus-avinfo.so` from `$(libdir)/nautilus/extensions-4/`. The location of `libdir` varies by distro.
-For example, on Arch Linux it is `/usr/lib` and on Fedora on x64 it is `/usr/lib64`.
+## Development
+See the (User Guide)[https://ezhai.github.io/nautilus-avinfo/] for details.
 
 
 ## Contributions
 If you encounter any issues, have suggestions, or would like to make a contribution (code, translations, etc...), please
 open an issue or submit a PR.
-
-
-## Development
-This project uses the Meson build system.
-```
-meson setup build                                       # setup build directory
-meson compile -C build                                  # compile project
-meson install -C build                                  # install binaries/translation files (requires sudo privileges)
-meson compile -C build nautilus-avinfo-uninstall        # uninstall binaries/translation files (requires sudo privileges)
-
-meson compile -C build nautilus-avinfo-pot              # gather strings needed for translations
-meson compile -C build nautilus-avinfo-upgrade-pot      # update strings in the translation files
-meson compile -C build nautilus-avinfo-update-po        # regenerate .po files
-```
-
-Some other helpful commands.
-```
-nautilus -q                 # terminate existing nautilus processes
-nautilus                    # start nautilus from the CLI
-```
-
-
-## Additional Notes
-The following resources may be of interest if you want to work on Nautilus extensions in C.
-- https://docs.gtk.org/gobject/
-- https://gnome.pages.gitlab.gnome.org/nautilus/
-- https://stackoverflow.com/questions/9675349/how-to-create-nautilus-c-extensions
