@@ -31,6 +31,7 @@ if __name__ == "__main__":
     env = Environment(
         loader=FileSystemLoader(templatedir),
         autoescape=select_autoescape(),
+        keep_trailing_newline=True,
     )
     template = env.get_template("nautilus-avinfo.spec.jinja")
 

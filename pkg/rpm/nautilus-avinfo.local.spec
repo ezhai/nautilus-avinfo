@@ -18,7 +18,7 @@ Requires:       nautilus >= 43 (ffmpeg or ffmpeg-free)
 A Nautilus extension for viewing audio and video information.
 
 %prep
-%setup -q
+%autosetup -n %{name}-%{version}
 
 %build
 meson setup build
