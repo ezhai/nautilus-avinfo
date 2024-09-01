@@ -1,15 +1,22 @@
 # Nautilus AVInfo
 
-A Nautilus (GNOME Files) extension to view audio/video information in the column and properties view.
+A Nautilus (GNOME Files) extension to view audio/video information in the detailed info view and properties view.
 This extension is only compatible with Nautilus versions 43+.
+
 ```
 nautilus --version
 ```
 
 This extension makes use of FFmpeg's `libavformat` library to provide information about media files.
 
----
+## Installation
 
-For instructions on how to install, see [User Guide - Installation](install).
+See the [User Guide](https://ezhai.github.io/nautilus-avinfo/install).
 
-For instructions on how to set up the development environment, see [Developer Guide - Getting Started](develop).
+## Development
+
+See the [Developer Guide](https://ezhai.github.io/nautilus-avinfo/develop).
+
+## Contributing
+
+If you encounter any issues or have suggestions, feel free to open a [Github issue](https://github.com/ezhai/nautilus-avinfo/issues).
