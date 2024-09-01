@@ -1,6 +1,7 @@
 #!/bin/sh
 
 branch=${1}
+retcode=0
 
 # Checkout project
 git clone https://github.com/ezhai/nautilus-avinfo.git
@@ -41,10 +42,16 @@ cd ~/rpmbuild
 # Build Fedora
 rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc40"
 mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.fc40\.src\.rpm")"
+if [[ $? -ne 0 ]]; then
+    retcode=1
+fi
 
 # Build OpenSUSE
 rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
 mock -r opensuse-tumbleweed-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
+if [[ $? -ne 0 ]]; then
+    retcode=1
+fi
 
 # Upload artifacts
 mkdir -p /github/rpm/
@@ -52,3 +59,5 @@ cp $(find ~/rpmbuild/SOURCES/ -regex ".*\.tar\.gz") /github/rpm
 cp $(find ~/rpmbuild/SPECS/ -regex ".*\.spec") /github/rpm
 cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /github/rpm
 cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
+
+exit $retcode
