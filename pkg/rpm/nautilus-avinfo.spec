@@ -9,7 +9,7 @@ License:        GPLv3+
 URL:            https://github.com/ezhai/nautilus-avinfo
 Source0:        https://github.com/ezhai/nautilus-avinfo/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  gcc meson gettext python python-jinja2
+BuildRequires:  gcc meson gettext python python3-jinja2
 BuildRequires:  pkgconfig(libnautilus-extension-4)
 BuildRequires:  pkgconfig(libavcodec) pkgconfig(libavformat) pkgconfig(libavutil)
 Requires:       nautilus >= 43 (ffmpeg or ffmpeg-free)
