@@ -45,5 +45,5 @@ run_target('nautilus-avinfo-uninstall',
 )
 
 run_target('rpm-spec',
-    command : ['scripts/generate-rpm-spec.sh', meson.project_version(), '@CURRENT_SOURCE_DIR@/pkg/rpm'],
+    command : ['python', '@CURRENT_SOURCE_DIR@/scripts/generate-rpm-spec.py', meson.project_version(), '@CURRENT_SOURCE_DIR@/pkg/rpm'],
 )
