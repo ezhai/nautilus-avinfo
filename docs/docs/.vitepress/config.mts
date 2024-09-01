@@ -9,23 +9,23 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Guide', link: '/guide/installation' },
+      { text: 'Reference', link: '/reference/getting-started' },
     ],
-
     sidebar: [
       {
-        text: 'User Guide',
+        text: "User Guide",
         items: [
-          { text: 'Installation', link: '/install' },
+          { text: 'Installation', link: '/guide/installation' },
         ]
       },
       {
         text: 'Developer Guide',
         items: [
-          { text: 'Getting Started', link: '/develop' },
+          { text: 'Getting Started', link: '/reference/getting-started' },
         ]
       }
     ],
-
     socialLinks: [
       { icon: 'github', link: 'https://github.com/ezhai/nautilus-avinfo' }
     ]
