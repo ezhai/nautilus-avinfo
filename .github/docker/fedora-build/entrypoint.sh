@@ -40,8 +40,8 @@ cp pkg/rpm/*.spec ~/rpmbuild/SPECS/
 cd ~/rpmbuild
 
 # Build Fedora
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc40"
-mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.fc40\.src\.rpm")"
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41"
+mock -r fedora-41-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.fc41\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
 fi
@@ -54,10 +54,14 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # Upload artifacts
-mkdir -p /github/rpm/
-cp $(find ~/rpmbuild/SOURCES/ -regex ".*\.tar\.gz") /github/rpm
-cp $(find ~/rpmbuild/SPECS/ -regex ".*\.spec") /github/rpm
-cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /github/rpm
-cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
+if [[ "${retcode}" -ne 1]]; then
+    mkdir -p /github/rpm/
+    cp $(find ~/rpmbuild/SOURCES/ -regex ".*\.tar\.gz") /github/rpm
+    cp $(find ~/rpmbuild/SPECS/ -regex ".*\.spec") /github/rpm
+    cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /github/rpm
+    cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
+else;
+    echo "Failed to build RPM, skipping artifact upload..."
+fi
 
 exit $retcode
