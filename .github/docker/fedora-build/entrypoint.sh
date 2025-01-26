@@ -54,13 +54,13 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # Upload artifacts
-if [[ "${retcode}" -ne 1]]; then
+if [[ "${retcode}" -ne 1 ]]; then
     mkdir -p /github/rpm/
     cp $(find ~/rpmbuild/SOURCES/ -regex ".*\.tar\.gz") /github/rpm
     cp $(find ~/rpmbuild/SPECS/ -regex ".*\.spec") /github/rpm
     cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /github/rpm
     cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
-else;
+else
     echo "Failed to build RPM, skipping artifact upload..."
 fi
 
