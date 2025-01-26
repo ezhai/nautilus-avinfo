@@ -49,7 +49,8 @@ The following files are installed by the extension.
 - `$(localedir)/*/LC_MESSAGES/nautilus-avinfo.mo`
 
 The location of `libdir` and `localedir` may vary. See the table below for examples.
-| Distro | `libdir` | `localedir` |
+
+| Distro       | `libdir`     | `localedir`         |
 | ------------ | ------------ | ------------------- |
-| Arch Linux | `/usr/lib` | `/usr/share/locale` |
+| Arch Linux   | `/usr/lib`   | `/usr/share/locale` |
 | Fedora (x64) | `/usr/lib64` | `/usr/share/locale` |
