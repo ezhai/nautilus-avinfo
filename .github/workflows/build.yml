@@ -6,14 +6,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - name: checkout
       uses: actions/checkout@v4
     - name: apt-install
       run: sudo apt-get install -y qemu-user-static
-    - name: disable-apparmor
-      run: (sudo aa-teardown || true) && sudo systemctl stop apparmor.service
     - name: docker-build
       run: docker build .github/docker/fedora-build -t fedora-build
     - name: docker-run
