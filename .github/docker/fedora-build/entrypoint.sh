@@ -41,21 +41,16 @@ tar -cvzf "${pkgname}.tar.gz" "${pkgname}/" > /dev/null
 rm -rf "${pkgname}/"
 
 # Set up RPM build directory
-rpmbuilddir=/nautilus-avinfo/rpmbuild
+rpmbuilddir=~/rpmbuild
 
 rpmdev-setuptree
-cp -r ~/rpmbuild/ "${rpmbuilddir}"
 mv "${pkgname}.tar.gz" "${rpmbuilddir}/SOURCES/"
 cp pkg/rpm/*.spec "${rpmbuilddir}/SPECS/"
 cd "${rpmbuilddir}"
 
-echo "TEST"
-ls "${rpmbuilddir}"/SOURCES/
-ls "${rpmbuilddir}"/SPECS/
-
 # Build Fedora
 echo "Building for Fedora 41..."
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41" --define "_topdir ${rpmbuilddir}"
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41"
 mock -r fedora-41-x86_64 "$(find SRPMS/ -regex ".*\.fc41\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
@@ -63,7 +58,7 @@ fi
 
 # Build OpenSUSE
 echo "Building for OpenSUSE..."
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw" --define "_topdir ${rpmbuilddir}"
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
 mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
