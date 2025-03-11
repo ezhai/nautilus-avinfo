@@ -37,7 +37,7 @@ cd "${pkgname}/"
 git checkout "${branch}"
 rm -rf .github docs pkg
 cd ..
-tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
+tar -cvzf "${pkgname}.tar.gz" "${pkgname}/" > /dev/null
 rm -rf "${pkgname}/"
 
 # Set up RPM build directory
@@ -55,7 +55,7 @@ ls "${rpmbuilddir}"/SPECS/
 
 # Build Fedora
 echo "Building for Fedora 41..."
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41" --define "rpmdir ${rpmbuilddir}"
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41" --define "_topdir ${rpmbuilddir}"
 mock -r fedora-41-x86_64 "$(find SRPMS/ -regex ".*\.fc41\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
@@ -63,7 +63,7 @@ fi
 
 # Build OpenSUSE
 echo "Building for OpenSUSE..."
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw" --define "rpmdir ${rpmbuilddir}"
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw" --define "_topdir ${rpmbuilddir}"
 mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
