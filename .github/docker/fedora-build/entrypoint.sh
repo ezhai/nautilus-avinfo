@@ -1,7 +1,13 @@
 #!/bin/sh
 
-branch=${1}
+branch="${1}"
+builddir="$(pwd)"
 retcode=0
+
+# Log info
+echo "Current Directory: $(pwd)"
+echo "Current Home: $(echo ~)"
+echo "Mock Version: $(rpm -q mock)"
 
 # Checkout project
 git clone https://github.com/ezhai/nautilus-avinfo.git
@@ -30,34 +36,41 @@ cd "${pkgname}/"
 git checkout "${branch}"
 rm -rf .github docs pkg
 cd ..
-tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
+tar -cvzf "${pkgname}.tar.gz" "${pkgname}/" > /dev/null
 rm -rf "${pkgname}/"
 
 # Set up RPM build directory
 rpmdev-setuptree
-mv "${pkgname}.tar.gz" ~/rpmbuild/SOURCES/
-cp pkg/rpm/*.spec ~/rpmbuild/SPECS/
-cd ~/rpmbuild
+rpmbuilddir=~/rpmbuild
+mv "${pkgname}.tar.gz" "${rpmbuilddir}/SOURCES/"
+cp pkg/rpm/*.spec "${rpmbuilddir}/SPECS/"
+cd "${rpmbuilddir}"
 
 # Build Fedora
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc40"
-mock -r fedora-40-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.fc40\.src\.rpm")"
+echo "Building for Fedora 41..."
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41"
+mock -r fedora-41-x86_64 "$(find SRPMS/ -regex ".*\.fc41\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
 fi
 
 # Build OpenSUSE
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
-mock -r opensuse-tumbleweed-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
-if [[ $? -ne 0 ]]; then
-    retcode=1
-fi
+# echo "Building for OpenSUSE..."
+# rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
+# mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
+# if [[ $? -ne 0 ]]; then
+#     retcode=1
+# fi
 
 # Upload artifacts
-mkdir -p /github/rpm/
-cp $(find ~/rpmbuild/SOURCES/ -regex ".*\.tar\.gz") /github/rpm
-cp $(find ~/rpmbuild/SPECS/ -regex ".*\.spec") /github/rpm
-cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /github/rpm
-cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
+if [[ "${retcode}" -ne 1 ]]; then
+    mkdir -p /github/rpm/
+    cp $(find SOURCES/ -regex ".*\.tar\.gz") /github/rpm
+    cp $(find SPECS/ -regex ".*\.spec") /github/rpm
+    cp $(find RPMS/ -regex ".*\.src\.rpm") /github/rpm
+    cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
+else
+    echo "Failed to build RPM, skipping artifact upload..."
+fi
 
 exit $retcode

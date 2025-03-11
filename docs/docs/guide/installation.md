@@ -23,12 +23,20 @@ Alternatively, some pre-packaged RPM files are provided on the [Releases](https:
 dnf install <path/to/nautilus-avinfo.rpm>
 ```
 
-The source RPM and RPM spec are also provided on the [Releases](https://github.com/ezhai/nautilus-avinfo/releases) page
-if you wish to build the package yourself or your OS is not supported.
+The source RPM and RPM spec are also provided on the [Releases](https://github.com/ezhai/nautilus-avinfo/releases) page if you wish to build the package yourself or your OS is not supported.
+
+## PKGBUILD (Arch)
+
+The extension can be downloaded using the provided PKGBUILD file provided on the [Releases](https://github.com/ezhai/nautilus-avinfo/releases).
+
+```
+cd <directory containing PKGBUILD>
+makepkg -si
+```
 
 ## Manual
 
-Install the `meson` build system and the appropriate development headers. Then build and install the project.
+Install the `meson` build system and the appropriate development headers.Then build and install the project.
 
 ```
 meson setup build
@@ -38,7 +46,7 @@ meson install -C build
 To uninstall the extension, run the uninstall script.
 
 ```
-meson compile -C build uninstall-nautilus-avinfo
+meson compile -C build nautilus-avinfo-uninstall
 ```
 
 ## Notes
@@ -49,7 +57,8 @@ The following files are installed by the extension.
 - `$(localedir)/*/LC_MESSAGES/nautilus-avinfo.mo`
 
 The location of `libdir` and `localedir` may vary. See the table below for examples.
-| Distro | `libdir` | `localedir` |
+
+| Distro       | `libdir`     | `localedir`         |
 | ------------ | ------------ | ------------------- |
-| Arch Linux | `/usr/lib` | `/usr/share/locale` |
+| Arch Linux   | `/usr/lib`   | `/usr/share/locale` |
 | Fedora (x64) | `/usr/lib64` | `/usr/share/locale` |
