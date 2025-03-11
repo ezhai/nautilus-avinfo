@@ -55,12 +55,12 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # Build OpenSUSE
-echo "Building for OpenSUSE..."
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
-mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
-if [[ $? -ne 0 ]]; then
-    retcode=1
-fi
+# echo "Building for OpenSUSE..."
+# rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
+# mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
+# if [[ $? -ne 0 ]]; then
+#     retcode=1
+# fi
 
 # Upload artifacts
 if [[ "${retcode}" -ne 1 ]]; then
