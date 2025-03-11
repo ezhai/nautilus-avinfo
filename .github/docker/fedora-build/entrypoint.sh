@@ -1,7 +1,14 @@
 #!/bin/sh
 
-branch=${1}
+branch="${1}"
+builddir="$(pwd)"
 retcode=0
+
+# Log info
+echo -n "Current Directory: "
+echo "$(pwd)"
+echo -n "Current Home:      "
+echo ~
 
 # Checkout project
 git clone https://github.com/ezhai/nautilus-avinfo.git
@@ -34,22 +41,29 @@ tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
 rm -rf "${pkgname}/"
 
 # Set up RPM build directory
+rpmbuilddir=/nautilus-avinfo/rpmbuild
 
 rpmdev-setuptree
-mv ~/rpmbuild rpmbuild
-mv "${pkgname}.tar.gz" rpmbuild/SOURCES/
-cp pkg/rpm/*.spec rpmbuild/SPECS/
-cd rpmbuild
+cp -r ~/rpmbuild/ "${rpmbuilddir}"
+mv "${pkgname}.tar.gz" "${rpmbuilddir}/SOURCES/"
+cp pkg/rpm/*.spec "${rpmbuilddir}/SPECS/"
+cd "${rpmbuilddir}"
+
+echo "TEST"
+ls "${rpmbuilddir}"/SOURCES/
+ls "${rpmbuilddir}"/SPECS/
 
 # Build Fedora
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41"
+echo "Building for Fedora 41..."
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41" --define "rpmdir ${rpmbuilddir}"
 mock -r fedora-41-x86_64 "$(find SRPMS/ -regex ".*\.fc41\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
 fi
 
 # Build OpenSUSE
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
+echo "Building for OpenSUSE..."
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw" --define "rpmdir ${rpmbuilddir}"
 mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
