@@ -10,9 +10,6 @@ makedepends=('meson')
 depends=('nautilus>=43')
 sha256sums=('3e9fb8241ac55a554de3f6b3f9301be816ffed366a99c65ee3443d79ba9e3ea1')
 
-libdir=/usr/lib/
-localedir=/usr/share/locale
-
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
 

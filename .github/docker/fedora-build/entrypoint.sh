@@ -34,21 +34,23 @@ tar -cvzf "${pkgname}.tar.gz" "${pkgname}/"
 rm -rf "${pkgname}/"
 
 # Set up RPM build directory
+
 rpmdev-setuptree
-mv "${pkgname}.tar.gz" ~/rpmbuild/SOURCES/
-cp pkg/rpm/*.spec ~/rpmbuild/SPECS/
-cd ~/rpmbuild
+mv ~/rpmbuild rpmbuild
+mv "${pkgname}.tar.gz" rpmbuild/SOURCES/
+cp pkg/rpm/*.spec rpmbuild/SPECS/
+cd rpmbuild
 
 # Build Fedora
 rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41"
-mock -r fedora-41-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.fc41\.src\.rpm")"
+mock -r fedora-41-x86_64 "$(find SRPMS/ -regex ".*\.fc41\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
 fi
 
 # Build OpenSUSE
 rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
-mock -r opensuse-tumbleweed-x86_64 "$(find ~/rpmbuild/SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
+mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
 fi
@@ -56,9 +58,9 @@ fi
 # Upload artifacts
 if [[ "${retcode}" -ne 1 ]]; then
     mkdir -p /github/rpm/
-    cp $(find ~/rpmbuild/SOURCES/ -regex ".*\.tar\.gz") /github/rpm
-    cp $(find ~/rpmbuild/SPECS/ -regex ".*\.spec") /github/rpm
-    cp $(find ~/rpmbuild/SRPMS/ -regex ".*\.src\.rpm") /github/rpm
+    cp $(find SOURCES/ -regex ".*\.tar\.gz") /github/rpm
+    cp $(find SPECS/ -regex ".*\.spec") /github/rpm
+    cp $(find RPMS/ -regex ".*\.src\.rpm") /github/rpm
     cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
 else
     echo "Failed to build RPM, skipping artifact upload..."
