@@ -5,10 +5,9 @@ builddir="$(pwd)"
 retcode=0
 
 # Log info
-echo -n "Current Directory: "
-echo "$(pwd)"
-echo -n "Current Home:      "
-echo ~
+echo "Current Directory: $(pwd)"
+echo "Current Home: $(echo ~)"
+echo "Mock Version: $(rpm -q mock)"
 
 # Checkout project
 git clone https://github.com/ezhai/nautilus-avinfo.git
@@ -41,9 +40,8 @@ tar -cvzf "${pkgname}.tar.gz" "${pkgname}/" > /dev/null
 rm -rf "${pkgname}/"
 
 # Set up RPM build directory
-rpmbuilddir=~/rpmbuild
-
 rpmdev-setuptree
+rpmbuilddir=~/rpmbuild
 mv "${pkgname}.tar.gz" "${rpmbuilddir}/SOURCES/"
 cp pkg/rpm/*.spec "${rpmbuilddir}/SPECS/"
 cd "${rpmbuilddir}"
