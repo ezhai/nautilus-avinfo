@@ -1,0 +1,31 @@
+pkgname=nautilus-avinfo
+pkgver=0.1.1
+pkgrel=2
+pkgdesc='Nautilus extension for audio and video info'
+url="https://github.com/ezhai/nautilus-avinfo"
+arch=("i686" "x86_64" "aarch64")
+license=('GPL-3.0')
+source=("https://github.com/ezhai/nautilus-avinfo/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+makedepends=('meson')
+depends=('nautilus>=43')
+sha256sums=('3e9fb8241ac55a554de3f6b3f9301be816ffed366a99c65ee3443d79ba9e3ea1')
+
+libdir=/usr/lib/
+localedir=/usr/share/locale
+
+build() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+
+    meson setup build
+    meson compile -C build
+}
+
+package() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+
+    meson install -C build --destdir "${pkgdir}"
+}
+
+post_upgrade() {
+    nautilus -q
+}
