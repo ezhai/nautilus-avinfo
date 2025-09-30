@@ -7,7 +7,7 @@ This extension is only compatible with Nautilus versions 43+.
 nautilus --version
 ```
 
-This extension makes use of FFmpeg's `libavformat` library to provide information about media files.
+This extension makes use of FFmpeg's `libavformat` library to provide information about audio and video files.
 
 ## Installation
 

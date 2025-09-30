@@ -2,6 +2,7 @@ project('nautilus-avinfo', 'c',
     default_options : ['buildtype=release', 'prefix=/usr'],
     version : '0.1.1',
 )
+add_project_arguments('-DG_LOG_DOMAIN="nautilus-avinfo"', language: 'c')
 
 ## DIRECTORIES
 prefix = get_option('prefix')
