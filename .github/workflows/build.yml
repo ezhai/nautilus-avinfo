@@ -17,6 +17,7 @@ jobs:
     - name: docker-run
       run: docker run --privileged --cap-add=SYS_ADMIN -v ${{ github.workspace }}:/github fedora-build ${{ github.ref_name }}
     - name: upload
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: nautilus-avinfo-rpm

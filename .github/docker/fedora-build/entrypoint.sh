@@ -79,10 +79,10 @@ if [[ "${retcode}" -ne 1 ]]; then
     cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
 else
     echo "Failed to build RPM, skipping artifact upload..."
+    mkdir -p /github/rpm/fedora-42
+    cp -r /var/lib/mock/fedora-42-x86_64/result /github/rpm/fedora-42
+    cp -r /var/lib/mock/opensuse-tumbleweed-x86_64/result /github/rpm/opensuse-tumbleweed
 fi
-mkdir -p /github/rpm/logs/fedora-42
-mkdir -p /github/rpm/logs/opensuse-tumbleweed
-cp -r /var/lib/mock/fedora-42-x86_64/result /github/rpm/logs/fedora-42/
-cp -r /var/lib/mock/opensuse-tumbleweed-x86_64/result /github/rpm/logs/opensuse-tumbleweed
+
 
 exit $retcode
