@@ -57,7 +57,7 @@ fi
 # Build Mageia
 echo "Building for Mageia 9..."
 rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .mg9"
-mock -r mageia9-x86_64 "$(find SRPMS/ -regex ".*\.mg9\.src\.rpm")"
+mock -r mageia-9-x86_64 "$(find SRPMS/ -regex ".*\.mg9\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
 fi
@@ -79,8 +79,9 @@ if [[ "${retcode}" -ne 1 ]]; then
     cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
 else
     echo "Failed to build RPM, skipping artifact upload..."
+    mkdir -p /github/rpm/
     cp -r /var/lib/mock/fedora-42-x86_64/result /github/rpm/fedora-42
-    cp -r /var/lib/mock/mageia9-x86_64/result /github/rpm/mageia9
+    cp -r /var/lib/mock/mageia-9-x86_64/result /github/rpm/mageia-9
     cp -r /var/lib/mock/opensuse-tumbleweed-x86_64/result /github/rpm/opensuse-tumbleweed
 fi
 
