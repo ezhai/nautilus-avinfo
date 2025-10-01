@@ -55,12 +55,12 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # Build Mageia
-echo "Building for Mageia 9..."
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .mg9"
-mock -r mageia-9-x86_64 "$(find SRPMS/ -regex ".*\.mg9\.src\.rpm")"
-if [[ $? -ne 0 ]]; then
-    retcode=1
-fi
+# echo "Building for Mageia 9..."
+# rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .mg9"
+# mock -r mageia-9-x86_64 "$(find SRPMS/ -regex ".*\.mg9\.src\.rpm")"
+# if [[ $? -ne 0 ]]; then
+#     retcode=1
+# fi
 
 # Build OpenSUSE
 echo "Building for OpenSUSE..."
