@@ -42,7 +42,7 @@ nautilus_module_initialize(GTypeModule *module)
     args->lk = &lk;
     args->cv = &cv;
     args->queue = &queue;
-    for (int i = 0; i < NUM_THREADS; ++i) {
+    for (size_t i = 0; i < NUM_THREADS; ++i) {
         pthread_create(&threads[i], NULL, update_file_info_worker, args);
     }
 }
@@ -50,7 +50,7 @@ nautilus_module_initialize(GTypeModule *module)
 void
 nautilus_module_shutdown(void)
 {
-    for (int i = 0; i < NUM_THREADS; ++i) {
+    for (size_t i = 0; i < NUM_THREADS; ++i) {
         pthread_detach(threads[i]);
     }
     pthread_mutex_destroy(&lk);

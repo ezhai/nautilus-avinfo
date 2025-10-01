@@ -73,14 +73,13 @@ add_av_format_context_nautilus_properties_info(GListStore *items,
     size_t buf_nb = 16;
     gchar buf[buf_nb];
 
-
     if (ctx->iformat) {
         g_list_store_append(items, nautilus_properties_item_new(dgettext(PACKAGE, "Format"), ctx->iformat->long_name));
     }
     g_list_store_append(items, nautilus_properties_item_new(dgettext(PACKAGE, "Duration"), format_duration(buf, buf_nb, ctx->duration)));
     g_list_store_append(items, nautilus_properties_item_new(dgettext(PACKAGE, "Total Bit Rate"), format_bitrate(buf, buf_nb, ctx->bit_rate)));
 
-    for (unsigned int i = 0; i < ctx->nb_streams; ++i) {
+    for (size_t i= 0; i < ctx->nb_streams; ++i) {
         g_list_store_append(items, nautilus_properties_item_new("", ""));
         add_av_stream_nautilus_properties_info(items, ctx->streams[i]);
     }

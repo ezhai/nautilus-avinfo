@@ -1,4 +1,4 @@
-FROM fedora:41
+FROM fedora:42
 
 RUN dnf install -y git gcc meson gettext python python-jinja2
 RUN dnf install -y nautilus-devel ffmpeg-free-devel

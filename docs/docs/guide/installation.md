@@ -6,9 +6,14 @@ This extension is only compatible with Nautilus 43+.
 nautilus --version
 ```
 
-If a package for your OS is not available, you will need to install the extension using the [manual installation](#manual) instructions.
+The extension can be installed via a package manager or installed manually. The following package management systems are supported.
 
-## RPM (Fedora, Mageia, OpenSUSE)
+- [RPM (Fedora, Mageia, OpenSUSE)](#rpm-installation)
+- [PKGBUILD (Arch, Manjaro, Garuda)](#pkgbuild-installation)
+
+If a package for your OS is not available, you will need to install the extension using the [manual installation](#manual-installation) instructions.
+
+## RPM Installation
 
 The extension can be downloaded through the COPR project repo.
 
@@ -25,18 +30,18 @@ dnf install <path/to/nautilus-avinfo.rpm>
 
 The source RPM and RPM spec are also provided on the [Releases](https://github.com/ezhai/nautilus-avinfo/releases) page if you wish to build the package yourself or your OS is not supported.
 
-## PKGBUILD (Arch)
+## PKGBUILD Installation
 
-The extension can be downloaded using the provided PKGBUILD file provided on the [Releases](https://github.com/ezhai/nautilus-avinfo/releases).
+The extension can be downloaded using the provided PKGBUILD file provided on the [Releases](https://github.com/ezhai/nautilus-avinfo/releases) page.
 
 ```
 cd <directory containing PKGBUILD>
 makepkg -si
 ```
 
-## Manual
+## Manual Installation
 
-Install the `meson` build system and the appropriate development headers.Then build and install the project.
+Install the `meson` build system and the appropriate development headers.Then build and install the project. See [here](../reference/getting-started.md) for more details.
 
 ```
 meson setup build

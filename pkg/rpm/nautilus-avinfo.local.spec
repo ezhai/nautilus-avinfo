@@ -1,15 +1,15 @@
 %define         debug_package %{nil}
 
 Name:           nautilus-avinfo
-Version:        0.1.1
-Release:        2%{?dist}
-Summary:        Nautilus extension for audio and video info
+Version:        0.2.0
+Release:        1%{?dist}
+Summary:        Nautilus extension for displaying audio and video info
 
 License:        GPLv3+
 URL:            https://github.com/ezhai/nautilus-avinfo
 Source0:        %{name}-%{version}.tar.gz
 
-BuildRequires:  gcc meson gettext python python3-jinja2
+BuildRequires:  gcc meson gettext (python or python3) python3-jinja2
 BuildRequires:  pkgconfig(libnautilus-extension-4)
 BuildRequires:  pkgconfig(libavcodec) pkgconfig(libavformat) pkgconfig(libavutil)
 Requires:       nautilus >= 43 (ffmpeg or ffmpeg-free)
@@ -32,6 +32,9 @@ meson compile -C build
 %{_datadir}/locale/*/LC_MESSAGES/nautilus-avinfo.mo
 
 %changelog
+* Tue Sep 30 2025 Eric Zhai <ezhai.dev@gmail.com> - 0.2.0-1
+- cache stream metadata in xattrs
+
 * Fri Aug 30 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.1.1-2
 - install translation files
 

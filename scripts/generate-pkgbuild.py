@@ -18,24 +18,23 @@ class Data:
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
-        print("Usage: generate-rpm-spec.py <version> <release> <specdir>")
+        print("Usage: generate-pkgbuild.py <version> <release> <pkgdir>")
         sys.exit(2)
 
     version = sys.argv[1]
     release = sys.argv[2]
-    specdir = sys.argv[3]
+    pkgdir = sys.argv[3]
     params = [
-        Data(local=False, version=version, release=release, filename="nautilus-avinfo.spec"),
-        Data(local=True, version=version, release=release, filename="nautilus-avinfo.local.spec"),
+        Data(local=False, version=version, release=release, filename="PKGBUILD"),
     ]
 
-    templatedir = Path(os.path.realpath(__file__)).parent.joinpath(specdir)
+    templatedir = Path(os.path.realpath(__file__)).parent.joinpath(pkgdir)
     env = Environment(
         loader=FileSystemLoader(templatedir),
         autoescape=select_autoescape(),
         keep_trailing_newline=True,
     )
-    template = env.get_template("nautilus-avinfo.spec.jinja")
+    template = env.get_template("PKGBUILD.jinja")
 
     for param in params:
         content = template.render(asdict(param))

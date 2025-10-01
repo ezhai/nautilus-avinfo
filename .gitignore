@@ -3,3 +3,9 @@
 
 # C Compilation
 build/
+
+# makepkg
+pkg/aur/pkg/
+pkg/aur/src/
+pkg/aur/nautilus-avinfo-*.tar.gz
+pkg/aur/nautilus-avinfo-*.tar.zst

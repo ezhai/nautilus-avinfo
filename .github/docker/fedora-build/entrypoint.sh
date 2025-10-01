@@ -47,20 +47,28 @@ cp pkg/rpm/*.spec "${rpmbuilddir}/SPECS/"
 cd "${rpmbuilddir}"
 
 # Build Fedora
-echo "Building for Fedora 41..."
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41"
-mock -r fedora-41-x86_64 "$(find SRPMS/ -regex ".*\.fc41\.src\.rpm")"
+echo "Building for Fedora 42..."
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc42"
+mock -r fedora-42-x86_64 "$(find SRPMS/ -regex ".*\.fc42\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
 fi
 
-# Build OpenSUSE
-# echo "Building for OpenSUSE..."
-# rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
-# mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
+# Build Mageia
+# echo "Building for Mageia 9..."
+# rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .mg9"
+# mock -r mageia-9-x86_64 "$(find SRPMS/ -regex ".*\.mg9\.src\.rpm")"
 # if [[ $? -ne 0 ]]; then
 #     retcode=1
 # fi
+
+# Build OpenSUSE
+echo "Building for OpenSUSE..."
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
+mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
+if [[ $? -ne 0 ]]; then
+    retcode=1
+fi
 
 # Upload artifacts
 if [[ "${retcode}" -ne 1 ]]; then
@@ -71,6 +79,11 @@ if [[ "${retcode}" -ne 1 ]]; then
     cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
 else
     echo "Failed to build RPM, skipping artifact upload..."
+    mkdir -p /github/rpm/
+    cp -r /var/lib/mock/fedora-42-x86_64/result /github/rpm/fedora-42
+    cp -r /var/lib/mock/mageia-9-x86_64/result /github/rpm/mageia-9
+    cp -r /var/lib/mock/opensuse-tumbleweed-x86_64/result /github/rpm/opensuse-tumbleweed
 fi
+
 
 exit $retcode

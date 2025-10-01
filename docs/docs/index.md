@@ -11,11 +11,11 @@ This extension makes use of FFmpeg's `libavformat` library to provide informatio
 
 ## Installation
 
-See the [User Guide](https://ezhai.github.io/nautilus-avinfo/install).
+See the [User Guide](./guide/installation.md).
 
 ## Development
 
-See the [Developer Guide](https://ezhai.github.io/nautilus-avinfo/develop).
+See the [Developer Guide](./reference/getting-started.md).
 
 ## Contributing
 
