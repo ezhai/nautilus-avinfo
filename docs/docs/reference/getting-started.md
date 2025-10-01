@@ -2,7 +2,7 @@
 
 ## Setup
 
-This project uses the Meson build system. To get started with development, install `meson` and the required development headers.
+This project uses the Meson build system. To get started with development, install `meson` and the required headers in `meson.build`.
 
 ```
 meson setup build                                       # setup build directory

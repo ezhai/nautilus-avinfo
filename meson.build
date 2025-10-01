@@ -1,8 +1,9 @@
 project('nautilus-avinfo', 'c',
     default_options : ['buildtype=release', 'prefix=/usr'],
-    version : '0.1.1',
+    version : '0.2.0',
 )
 add_project_arguments('-DG_LOG_DOMAIN="nautilus-avinfo"', language: 'c')
+release = '1'
 
 ## DIRECTORIES
 prefix = get_option('prefix')
@@ -46,5 +47,9 @@ run_target('nautilus-avinfo-uninstall',
 )
 
 run_target('rpm-spec',
-    command : ['python', '@CURRENT_SOURCE_DIR@/scripts/generate-rpm-spec.py', meson.project_version(), '@CURRENT_SOURCE_DIR@/pkg/rpm'],
+    command : ['python', '@CURRENT_SOURCE_DIR@/scripts/generate-rpm-spec.py', meson.project_version(), release, '@CURRENT_SOURCE_DIR@/pkg/rpm'],
+)
+
+run_target('pkgbuild',
+    command : ['python', '@CURRENT_SOURCE_DIR@/scripts/generate-pkgbuild.py', meson.project_version(), release, '@CURRENT_SOURCE_DIR@/pkg/aur'],
 )

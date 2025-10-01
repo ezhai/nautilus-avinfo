@@ -73,7 +73,6 @@ add_av_format_context_nautilus_properties_info(GListStore *items,
     size_t buf_nb = 16;
     gchar buf[buf_nb];
 
-
     if (ctx->iformat) {
         g_list_store_append(items, nautilus_properties_item_new(dgettext(PACKAGE, "Format"), ctx->iformat->long_name));
     }

@@ -47,20 +47,20 @@ cp pkg/rpm/*.spec "${rpmbuilddir}/SPECS/"
 cd "${rpmbuilddir}"
 
 # Build Fedora
-echo "Building for Fedora 41..."
-rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc41"
-mock -r fedora-41-x86_64 "$(find SRPMS/ -regex ".*\.fc41\.src\.rpm")"
+echo "Building for Fedora 42..."
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .fc42"
+mock -r fedora-42-x86_64 "$(find SRPMS/ -regex ".*\.fc42\.src\.rpm")"
 if [[ $? -ne 0 ]]; then
     retcode=1
 fi
 
 # Build OpenSUSE
-# echo "Building for OpenSUSE..."
-# rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
-# mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
-# if [[ $? -ne 0 ]]; then
-#     retcode=1
-# fi
+echo "Building for OpenSUSE..."
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
+mock -r opensuse-tumbleweed-x86_64 "$(find SRPMS/ -regex ".*\.suse\.tw\.src\.rpm")"
+if [[ $? -ne 0 ]]; then
+    retcode=1
+fi
 
 # Upload artifacts
 if [[ "${retcode}" -ne 1 ]]; then
