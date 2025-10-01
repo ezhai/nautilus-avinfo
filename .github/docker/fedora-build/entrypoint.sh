@@ -54,6 +54,14 @@ if [[ $? -ne 0 ]]; then
     retcode=1
 fi
 
+# Build Mageia
+echo "Building for Mageia 9..."
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .mg9"
+mock -r mageia9-x86_64 "$(find SRPMS/ -regex ".*\.mg9\.src\.rpm")"
+if [[ $? -ne 0 ]]; then
+    retcode=1
+fi
+
 # Build OpenSUSE
 echo "Building for OpenSUSE..."
 rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .suse.tw"
@@ -74,7 +82,7 @@ else
 fi
 mkdir -p /github/rpm/logs/fedora-42
 mkdir -p /github/rpm/logs/opensuse-tumbleweed
-cp /var/lib/mock/fedora-42-x86_64/result/* /github/rpm/logs/fedora-42/
-cp /var/lib/mock/opensuse-tumbleweed-x86_64/result/* /github/rpm/logs/opensuse-tumbleweed/
+cp -r /var/lib/mock/fedora-42-x86_64/result /github/rpm/logs/fedora-42/
+cp -r /var/lib/mock/opensuse-tumbleweed-x86_64/result /github/rpm/logs/opensuse-tumbleweed
 
 exit $retcode
