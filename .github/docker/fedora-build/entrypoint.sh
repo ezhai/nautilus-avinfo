@@ -72,5 +72,9 @@ if [[ "${retcode}" -ne 1 ]]; then
 else
     echo "Failed to build RPM, skipping artifact upload..."
 fi
+mkdir -p /github/rpm/logs/fedora-42
+mkdir -p /github/rpm/logs/opensuse-tumbleweed
+cp /var/lib/mock/fedora-42-x86_64/result/* /github/rpm/logs/fedora-42/
+cp /var/lib/mock/opensuse-tumbleweed-x86_64/result/* /github/rpm/logs/opensuse-tumbleweed/
 
 exit $retcode
