@@ -11,7 +11,7 @@ options=('!debug')
 source=("https://github.com/ezhai/nautilus-avinfo/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 makedepends=('meson')
 depends=('nautilus>=43', 'ffmpeg')
-sha256sums=('SKIP')
+sha256sums=('93266acdadbead8acf003a5697694d118f71264492f77c3f1a8489ba0e7c7a53')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"

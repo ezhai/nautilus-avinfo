@@ -9,5 +9,5 @@ If a version bump is required, follow the following instructions.
 3.  Run `meson compile -C build pkgbuild` to update the PKGBUILD.
 
 ::: warning
-The `sha256sum` for the `PKGBUILD` cannot be updated since the tarball for the latest version isn't uploaded until the MR making the change is merged in. It is advised to set the hash to `SKIP` and update the hash to the proper value in a subsequent MR.
+The `sha256sum` for the `PKGBUILD` cannot be updated in the same MR as the version bump since the updated tarball needs to be uploaded first. Currently, the recommended workaround is to set the hash to `SKIP` and update the hash in the `PKGBUILD` for the release version.
 :::

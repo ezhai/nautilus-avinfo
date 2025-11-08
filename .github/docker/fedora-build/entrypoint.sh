@@ -55,12 +55,12 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # Build Mageia
-# echo "Building for Mageia 9..."
-# rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .mg9"
-# mock -r mageia-9-x86_64 "$(find SRPMS/ -regex ".*\.mg9\.src\.rpm")"
-# if [[ $? -ne 0 ]]; then
-#     retcode=1
-# fi
+echo "Building for Mageia 9..."
+rpmbuild -bs "SPECS/nautilus-avinfo.local.spec" --define "dist .mg9"
+mock -r mageia-9-x86_64 "$(find SRPMS/ -regex ".*\.mg9\.src\.rpm")"
+if [[ $? -ne 0 ]]; then
+    retcode=1
+fi
 
 # Build OpenSUSE
 echo "Building for OpenSUSE..."
@@ -72,13 +72,14 @@ fi
 
 # Upload artifacts
 if [[ "${retcode}" -ne 1 ]]; then
+    echo "Build successful, uploading artifacts..."
     mkdir -p /github/rpm/
     cp $(find SOURCES/ -regex ".*\.tar\.gz") /github/rpm
     cp $(find SPECS/ -regex ".*\.spec") /github/rpm
     cp $(find RPMS/ -regex ".*\.src\.rpm") /github/rpm
     cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
 else
-    echo "Failed to build RPM, skipping artifact upload..."
+    echo "Failed to build RPM, uploading logs..."
     mkdir -p /github/rpm/
     cp -r /var/lib/mock/fedora-42-x86_64/result /github/rpm/fedora-42
     cp -r /var/lib/mock/mageia-9-x86_64/result /github/rpm/mageia-9
