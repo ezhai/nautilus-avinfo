@@ -10,9 +10,8 @@ meson compile -C build                                  # compile project
 meson install -C build                                  # install binaries/translation files (requires sudo privileges)
 meson compile -C build nautilus-avinfo-uninstall        # uninstall binaries/translation files (requires sudo privileges)
 
-meson compile -C build nautilus-avinfo-pot              # gather strings needed for translations
-meson compile -C build nautilus-avinfo-upgrade-pot      # update strings in the translation files
-meson compile -C build nautilus-avinfo-update-po        # regenerate .po files
+meson compile -C build nautilus-avinfo-pot              # gather strings needed for translations using xgettext
+meson compile -C build nautilus-avinfo-update-po        # regenerate .po files from the .pot file
 ```
 
 Some other helpful commands.
