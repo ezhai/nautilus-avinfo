@@ -20,7 +20,7 @@
 void
 add_nautilus_property(GListStore *items, char *prefix, char *name, const char *value)
 {
-    size_t name_copy_nb = 32;
+    size_t name_copy_nb = 64;
     char name_copy[name_copy_nb];
 
     if (prefix[0] == '\0') {
