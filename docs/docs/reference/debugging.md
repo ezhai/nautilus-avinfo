@@ -1,10 +1,10 @@
 # Debugging
 
-# Logging
+## Logging
 
-By default, the extension will log to the `nautilus-avinfo` log domain. Debug and info logs are suppressed by default. To enable logs, pass the `G_MESSAGES_DEBUG=nautilus-avinfo` environment variable when running `nautilus`.
+By default, the extension will log to the `nautilus-avinfo` log domain. Debug and info logs are suppressed by default. To enable logs, set the `G_MESSAGES_DEBUG=nautilus-avinfo` or `DEBUG_INVOCATION=1` environment variable when running `nautilus`.
 
-# File Attributes
+## File Attributes
 
 To view all file attributes associated with a file, run the following command.
 

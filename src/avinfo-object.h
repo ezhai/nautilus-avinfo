@@ -29,8 +29,10 @@ struct _AVInfoExtensionClassData {
 
 void avinfo_extension_instance_init(AVInfoExtension *object);
 
-void avinfo_extension_class_init(AVInfoExtensionClass *class, gpointer class_data);
+void avinfo_extension_class_init(AVInfoExtensionClass *class,
+                                 gpointer class_data);
 
-void avinfo_extension_register_type(GTypeModule *module, AVInfoExtensionClassData *data);
+void avinfo_extension_register_type(GTypeModule *module, 
+                                    AVInfoExtensionClassData *data);
 
 GType avinfo_extension_get_type(void);

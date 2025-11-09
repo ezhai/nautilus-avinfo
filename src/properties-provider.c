@@ -67,7 +67,7 @@ add_av_stream_nautilus_properties(GListStore *items, AVStream *stream)
 }
 
 void
-add_av_format_context_nautilus_properties(GListStore *items, AVFormatContext *ctx)
+add_av_format_contAVINFO_nautilus_properties(GListStore *items, AVFormatContext *ctx)
 {
     size_t buf_nb = 16;
     gchar buf[buf_nb];
@@ -114,7 +114,7 @@ avinfo_properties_model_provider_get_models(NautilusPropertiesModelProvider *pro
     avformat_find_stream_info(ctx, NULL);
 
     GListStore *items = g_list_store_new(NAUTILUS_TYPE_PROPERTIES_ITEM);
-    add_av_format_context_nautilus_properties(items, ctx);
+    add_av_format_contAVINFO_nautilus_properties(items, ctx);
 
     avformat_close_input(&ctx);
     avformat_free_context(ctx);

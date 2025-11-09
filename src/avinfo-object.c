@@ -54,7 +54,7 @@ avinfo_extension_register_type(GTypeModule *module, AVInfoExtensionClassData *da
     column_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_column_provider_interface_init;
 
     info_provider_interface_info = g_new0(GInterfaceInfo, 1);
-    info_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_extension_info_provider_interface_init;
+    info_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_info_provider_interface_init;
 
     menu_provider_interface_info = g_new0(GInterfaceInfo, 1);
     menu_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_menu_provider_interface_init;
