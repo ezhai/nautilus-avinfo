@@ -4,8 +4,15 @@
 #include "column-provider.h"
 
 
+void
+avinfo_column_provider_interface_init(NautilusColumnProviderInterface *interface)
+{
+    interface->get_columns = avinfo_column_provider_get_columns;
+}
+
+
 GList *
-avinfo_extension_get_columns(NautilusColumnProvider *provider)
+avinfo_column_provider_get_columns(NautilusColumnProvider *provider)
 {
     GList *ret = NULL;
     ret = g_list_append(ret, nautilus_column_new(EXT_DURATION_COL,
@@ -33,10 +40,4 @@ avinfo_extension_get_columns(NautilusColumnProvider *provider)
                                                  dgettext(PACKAGE, "Video Bit Rate"),
                                                  dgettext(PACKAGE, "Bit rate of the video stream.")));
     return ret;
-}
-
-void
-avinfo_extension_column_provider_interface_init(NautilusColumnProviderInterface *interface)
-{
-    interface->get_columns = avinfo_extension_get_columns;
 }

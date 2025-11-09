@@ -27,44 +27,38 @@ static const int NUM_EXT_ATTR_ALL = G_N_ELEMENTS(EXT_ATTR_ALL);
 void set_file_info_attributes_from_nautilus_info(GFileInfo *file_info, NautilusFileInfo *nautilus_info)
 {
     for (size_t i = 0; i < NUM_EXT_ATTR_ALL; ++i) {
-        gchar *val = nautilus_file_info_get_string_attribute(nautilus_info, EXT_ATTR_ALL[i]);
+        g_autofree char *val = nautilus_file_info_get_string_attribute(nautilus_info, EXT_ATTR_ALL[i]);
         if (val == NULL) {
             continue;
         }
         g_file_info_set_attribute_string(file_info, EXT_ATTR_ALL[i], val);
-        g_free(val);
     }
-    gchar *val = g_date_time_format_iso8601 (g_date_time_new_now_utc());
+    g_autoptr(GDateTime) now = g_date_time_new_now_utc();
+    g_autofree char *val = g_date_time_format_iso8601(now);
     g_file_info_set_attribute_string(file_info, EXT_LAST_COMPUTED_ATTR, val);
-    g_free(val);
     return;
 }
 
 void set_nautilus_info_attributes_from_file_info(NautilusFileInfo *nautilus_info, GFileInfo *file_info)
 {
     for (size_t i = 0; i < NUM_EXT_ATTR_ALL; ++i) {
+        // val is owned by file_info
         const char *val = g_file_info_get_attribute_string(file_info, EXT_ATTR_ALL[i]);
         if (val == NULL) {
             continue;
         }
         nautilus_file_info_add_string_attribute(nautilus_info, EXT_ATTR_ALL[i], val);
-        // TODO: Investigate why g_free may segfault here
     }
 }
 
 int has_cached_file_info_attributes(GFileInfo *file_info)
 {
     if (g_file_info_has_attribute(file_info, EXT_LAST_COMPUTED_ATTR)) {
-        const gchar *val = g_file_info_get_attribute_string(file_info, EXT_LAST_COMPUTED_ATTR);
-        GDateTime *last_computed = g_date_time_new_from_iso8601(val, NULL);
-        GDateTime *last_modified = g_file_info_get_modification_date_time(file_info);
+        // val is owned by file_info
+        const char *val = g_file_info_get_attribute_string(file_info, EXT_LAST_COMPUTED_ATTR);
+        g_autoptr(GDateTime) last_computed = g_date_time_new_from_iso8601(val, NULL);
+        g_autoptr(GDateTime) last_modified = g_file_info_get_modification_date_time(file_info);
         int is_cache_outdated = last_computed == NULL || last_modified == NULL || g_date_time_compare(last_computed, last_modified) < 0;
-        if (last_computed != NULL) {
-            g_date_time_unref(last_computed);
-        }
-        if (last_modified != NULL) {
-            g_date_time_unref(last_modified);
-        }
         if (is_cache_outdated) {
             return FALSE;
         }
