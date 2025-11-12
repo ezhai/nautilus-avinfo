@@ -9,8 +9,8 @@ arch=("i686" "x86_64" "aarch64")
 license=('GPL-3.0')
 options=('!debug')
 source=("https://github.com/ezhai/nautilus-avinfo/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-makedepends=('meson', 'libnautilus-extension', 'python', 'python-jinja')
-depends=('nautilus>=43', 'gnome-desktop', 'ffmpeg')
+makedepends=('meson' 'libnautilus-extension' 'python' 'python-jinja')
+depends=('nautilus>=43' 'gnome-desktop' 'ffmpeg')
 sha256sums=('SKIP')
 
 build() {

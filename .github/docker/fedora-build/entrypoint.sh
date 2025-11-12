@@ -74,17 +74,17 @@ fi
 # Upload artifacts
 if [[ "${retcode}" -ne 1 ]]; then
     echo "Build successful, uploading artifacts..."
-    mkdir -p /github/rpm/
-    cp $(find SOURCES/ -regex ".*\.tar\.gz") /github/rpm
-    cp $(find SPECS/ -regex ".*\.spec") /github/rpm
-    cp $(find RPMS/ -regex ".*\.src\.rpm") /github/rpm
-    cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
+    mkdir -p /github/artifacts/
+    cp $(find SOURCES/ -regex ".*\.tar\.gz") /github/artifacts
+    cp $(find SPECS/ -regex ".*\.spec") /github/artifacts
+    cp $(find RPMS/ -regex ".*\.src\.rpm") /github/artifacts
+    cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/artifacts
 else
     echo "Failed to build RPM, uploading logs..."
-    mkdir -p /github/rpm/
-    cp -r /var/lib/mock/fedora-42-x86_64/result /github/rpm/fedora-42
-    cp -r /var/lib/mock/mageia-9-x86_64/result /github/rpm/mageia-9
-    cp -r /var/lib/mock/opensuse-tumbleweed-x86_64/result /github/rpm/opensuse-tumbleweed
+    mkdir -p /github/artifacts/
+    cp -r /var/lib/mock/fedora-42-x86_64/result /github/artifacts/fedora-42
+    cp -r /var/lib/mock/mageia-9-x86_64/result /github/artifacts/mageia-9
+    cp -r /var/lib/mock/opensuse-tumbleweed-x86_64/result /github/artifacts/opensuse-tumbleweed
 fi
 
 

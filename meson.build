@@ -30,7 +30,7 @@ deps = [
     dependency('libavcodec'),
     dependency('libavformat'),
     dependency('libavutil'),
-    dependency('gnome-desktop-4', 'gnome-desktop4'),
+    dependency('gnome-desktop-4'),
     dependency('threads'),
 ]
 

@@ -21,7 +21,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: nautilus-avinfo-rpm
-        path:  ${{ github.workspace }}/rpm
+        path:  ${{ github.workspace }}/artifacts
   build-arch:
     runs-on: ubuntu-22.04
     steps:
@@ -36,4 +36,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: nautilus-avinfo-pkgbuild
-        path:  ${{ github.workspace }}/pkg/aur/PKGBUILD
+        path:  ${{ github.workspace }}/artifacts

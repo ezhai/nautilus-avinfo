@@ -20,14 +20,16 @@ fi
 
 # Build project
 cd pkg/aur
-su nobody -c "makepkg -si --noconfirm"
+makepkg -si --noconfirm
 if [[ $? -ne 0 ]]; then
     retcode=1
 fi
 
 # Upload artifacts
+chown -R rei:rei /github
 if [[ "${retcode}" -ne 1 ]]; then
     echo "Build successful, uploading artifacts..."
+    mkdir -p /github/artifacts/
 else
     echo "Failed to build package, exiting..."
 fi
