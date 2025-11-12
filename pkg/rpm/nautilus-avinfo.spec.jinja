@@ -15,7 +15,7 @@ Source0:        https://github.com/ezhai/nautilus-avinfo/archive/%{version}/%{na
 
 BuildRequires:  gcc meson gettext (python or python3) python3-jinja2
 BuildRequires:  pkgconfig(libnautilus-extension-4)
-BuildRequires:  pkgconfig(libavcodec) pkgconfig(libavformat) pkgconfig(libavutil)
+BuildRequires:  pkgconfig(libavcodec) pkgconfig(libavformat) pkgconfig(libavutil) pkgconfig(gnome-desktop-4)
 Requires:       nautilus >= 43 (ffmpeg or ffmpeg-free)
 
 %description
@@ -36,6 +36,9 @@ meson compile -C build
 %{_datadir}/locale/*/LC_MESSAGES/nautilus-avinfo.mo
 
 %changelog
+* xxx xxx xx xxxx Eric Zhai <ezhai.dev@gmail.com> - 0.3.0-1
+- add thumbnail refresh button to context menu
+
 * Tue Sep 30 2025 Eric Zhai <ezhai.dev@gmail.com> - 0.2.0-1
 - cache stream metadata in xattrs
 

@@ -5,7 +5,7 @@ on:
     branches: [ "*" ]
 
 jobs:
-  build:
+  build-fedora:
     runs-on: ubuntu-22.04
     steps:
     - name: checkout
@@ -22,3 +22,18 @@ jobs:
       with:
         name: nautilus-avinfo-rpm
         path:  ${{ github.workspace }}/rpm
+  build-arch:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+    - name: docker-build
+      run: docker build .github/docker/arch-build -t arch-build
+    - name: docker-run
+      run: docker run --privileged -v ${{ github.workspace }}:/github arch-build ${{ github.ref_name }}
+    - name: upload
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: nautilus-avinfo-pkgbuild
+        path:  ${{ github.workspace }}/pkg/aur/PKGBUILD
