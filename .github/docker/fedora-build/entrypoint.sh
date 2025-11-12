@@ -7,6 +7,7 @@ retcode=0
 # Log info
 echo "Current Directory: $(pwd)"
 echo "Current Home: $(echo ~)"
+echo "Current User: $(whoami)"
 echo "Mock Version: $(rpm -q mock)"
 
 # Clone project

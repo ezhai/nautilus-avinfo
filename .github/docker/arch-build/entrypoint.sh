@@ -7,6 +7,7 @@ retcode=0
 # Log info
 echo "Current Directory: $(pwd)"
 echo "Current Home: $(echo ~)"
+echo "Current User: $(whoami)"
 
 # Clone project
 git clone https://github.com/ezhai/nautilus-avinfo.git
@@ -19,7 +20,7 @@ fi
 
 # Build project
 cd pkg/aur
-makepkg -si --noconfirm
+su nobody -c "makepkg -si --noconfirm"
 if [[ $? -ne 0 ]]; then
     retcode=1
 fi
