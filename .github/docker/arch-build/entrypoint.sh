@@ -17,8 +17,22 @@ if [[ $? -ne 0 ]]; then
     echo "Branch \"${branch}\" does not exist"
     exit 1
 fi
+pkgname="nautilus-avinfo"
 
-# Build project
+# Create an archive from a clean source
+git clone https://github.com/ezhai/nautilus-avinfo.git "${pkgname}/"
+cd "${pkgname}/"
+git checkout "${branch}"
+rm -rf .github docs pkg
+cd ..
+tar -cvzf "${pkgname}.tar.gz" "${pkgname}/" > /dev/null
+rm -rf "${pkgname}/"
+
+# Clean up build dir
+mv "${pkgname}.tar.gz" "pkg/aur/"
+mv pkg/aur/PKGBUILD.local pkg/aur/PKGBUILD
+
+# Build
 cd pkg/aur
 makepkg -si --noconfirm
 if [[ $? -ne 0 ]]; then
@@ -26,7 +40,6 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # Upload artifacts
-chown -R rei:rei /github
 if [[ "${retcode}" -ne 1 ]]; then
     echo "Build successful, uploading artifacts..."
     mkdir -p /github/artifacts/

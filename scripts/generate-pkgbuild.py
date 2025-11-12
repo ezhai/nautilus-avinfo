@@ -26,6 +26,7 @@ if __name__ == "__main__":
     pkgdir = sys.argv[3]
     params = [
         Data(local=False, version=version, release=release, filename="PKGBUILD"),
+        Data(local=True, version=version, release=release, filename="PKGBUILD.local"),
     ]
 
     templatedir = Path(os.path.realpath(__file__)).parent.joinpath(pkgdir)

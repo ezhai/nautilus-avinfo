@@ -1,39 +1,27 @@
 # Maintainer: ezhai
 
 pkgname=nautilus-avinfo
-pkgver={{ version }}
-pkgrel={{ release }}
+pkgver=0.3.0
+pkgrel=1
 pkgdesc='Nautilus extension for displaying audio and video info'
 url="https://github.com/ezhai/nautilus-avinfo"
 arch=("i686" "x86_64" "aarch64")
 license=('GPL-3.0')
 options=('!debug')
-{%+ if local -%}
 source=("${pkgname}.tar.gz")
-{%- else -%}
-source=("https://github.com/ezhai/nautilus-avinfo/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-{%- endif +%}
 makedepends=('meson' 'libnautilus-extension' 'python' 'python-jinja')
 depends=('nautilus>=43' 'gnome-desktop' 'ffmpeg')
 sha256sums=('SKIP')
 
 build() {
-    {%+ if local -%}
     cd "${srcdir}/${pkgname}"
-    {%- else -%}
-    cd "${srcdir}/${pkgname}-${pkgver}"
-    {%- endif +%}
 
     meson setup build
     meson compile -C build
 }
 
 package() {
-    {%+ if local -%}
     cd "${srcdir}/${pkgname}"
-    {%- else -%}
-    cd "${srcdir}/${pkgname}-${pkgver}"
-    {%- endif +%}
 
     meson install -C build --destdir "${pkgdir}"
 }
