@@ -4,7 +4,11 @@ branch="${1}"
 builddir="$(pwd)"
 retcode=0
 
-# Checkout project
+# Log info
+echo "Current Directory: $(pwd)"
+echo "Current Home: $(echo ~)"
+
+# Clone project
 git clone https://github.com/ezhai/nautilus-avinfo.git
 cd nautilus-avinfo
 git checkout "${branch}"
