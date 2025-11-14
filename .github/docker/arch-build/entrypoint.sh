@@ -28,9 +28,10 @@ cd ..
 tar -cvzf "${pkgname}.tar.gz" "${pkgname}/" > /dev/null
 rm -rf "${pkgname}/"
 
-# Clean up build dir
+# Set up build directory
 mv "${pkgname}.tar.gz" "pkg/aur/"
 mv pkg/aur/PKGBUILD.local pkg/aur/PKGBUILD
+rm pkg/aur/PKGBUILD.jinja
 
 # Build
 cd pkg/aur
@@ -42,7 +43,9 @@ fi
 # Upload artifacts
 if [[ "${retcode}" -ne 1 ]]; then
     echo "Build successful, uploading artifacts..."
-    mkdir -p /github/artifacts/
+    sudo mkdir -p /github/artifacts/
+    sudo cp $(find . -regex ".*\.tar\.zst") /github/artifacts
+    sudo cp $(find . -regex ".*\.pkg.tar\.zst") /github/artifacts
 else
     echo "Failed to build package, exiting..."
 fi
