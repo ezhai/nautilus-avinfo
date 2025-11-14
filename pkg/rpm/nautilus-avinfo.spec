@@ -32,7 +32,7 @@ meson compile -C build
 %{_datadir}/locale/*/LC_MESSAGES/nautilus-avinfo.mo
 
 %changelog
-* Fri Nov 13 2025 Eric Zhai <ezhai.dev@gmail.com> - 0.3.0-1
+* Thu Nov 13 2025 Eric Zhai <ezhai.dev@gmail.com> - 0.3.0-1
 - add thumbnail refresh button to context menu
 
 * Tue Sep 30 2025 Eric Zhai <ezhai.dev@gmail.com> - 0.2.0-1

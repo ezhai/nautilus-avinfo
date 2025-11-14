@@ -9,6 +9,8 @@ nautilus --version
 
 This extension makes use of FFmpeg's `libavformat` library to provide information about audio and video files.
 
+<img src="./docs/docs/guide/visible_columns.png?sanitize=true" alt="Example" height="75%" width="75%">
+
 ## Installation
 
 Installation files for Fedora (RPM) and Arch Linux (PKGBUILD) are available on the [Releases](https://github.com/ezhai/nautilus-avinfo/releases) page.
