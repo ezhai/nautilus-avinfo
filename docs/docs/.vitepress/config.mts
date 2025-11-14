@@ -24,7 +24,7 @@ export default defineConfig({
         text: "Developer Guide",
         items: [
           { text: "Getting Started", link: "/reference/getting-started" },
-          { text: "Cutting a Release", link: "/reference/release" },
+          { text: "Release Info", link: "/reference/release" },
           {
             text: "RPM Packaging Notes",
             link: "/reference/rpm-packaging-notes",

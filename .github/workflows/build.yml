@@ -5,20 +5,61 @@ on:
     branches: [ "*" ]
 
 jobs:
-  build:
+  build-version:
     runs-on: ubuntu-22.04
+    outputs:
+      version: ${{ steps.docker-run.outputs.version }}
     steps:
-    - name: checkout
-      uses: actions/checkout@v4
-    - name: apt-install
-      run: sudo apt-get install -y qemu-user-static
-    - name: docker-build
-      run: docker build .github/docker/fedora-build -t fedora-build
-    - name: docker-run
-      run: docker run --privileged --cap-add=SYS_ADMIN -v ${{ github.workspace }}:/github fedora-build ${{ github.ref_name }}
-    - name: upload
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: nautilus-avinfo-rpm
-        path:  ${{ github.workspace }}/rpm
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: docker-build
+        run: docker build .github/docker/generic-build -t generic-build --build-arg GITHUB_OUTPUT=/github/output
+      - name: docker-run
+        id: docker-run
+        run: |
+          docker run --privileged \
+            -v ${{ github.workspace }}:/github \
+            -v ${GITHUB_OUTPUT}:/github/output \
+            generic-build ${{ github.ref_name }}
+
+  build-fedora:
+    runs-on: ubuntu-22.04
+    needs: build-version
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: apt-install
+        run: sudo apt-get install -y qemu-user-static
+      - name: docker-build
+        run: docker build .github/docker/fedora-build -t fedora-build
+      - name: docker-run
+        run: |
+          docker run --privileged --cap-add=SYS_ADMIN \
+            -v ${{ github.workspace }}:/github \
+            fedora-build ${{ github.ref_name }} ${{ needs.build-version.outputs.version }}
+      - name: upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nautilus-avinfo-rpm
+          path:  ${{ github.workspace }}/artifacts
+
+  build-arch:
+    runs-on: ubuntu-22.04
+    needs: build-version
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: docker-build
+        run: docker build .github/docker/arch-build -t arch-build
+      - name: docker-run
+        run: |
+          docker run --privileged \
+          -v ${{ github.workspace }}:/github \
+          arch-build ${{ github.ref_name }} ${{ needs.build-version.outputs.version }}
+      - name: upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nautilus-avinfo-pkgbuild
+          path:  ${{ github.workspace }}/artifacts

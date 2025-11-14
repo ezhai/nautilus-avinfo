@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nautilus-avinfo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-30 11:40-0700\n"
+"POT-Creation-Date: 2025-11-09 13:23-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,115 +17,123 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/column-provider.c:13 src/properties-provider.c:80
+#: src/column-provider.c:20 src/properties-provider.c:121
 msgid "Duration"
 msgstr ""
 
-#: src/column-provider.c:14
+#: src/column-provider.c:21
 msgid "Duration of the audio/video stream."
 msgstr ""
 
-#: src/column-provider.c:17 src/properties-provider.c:54
+#: src/column-provider.c:24 src/properties-provider.c:70
 msgid "Dimensions"
 msgstr ""
 
-#: src/column-provider.c:18
+#: src/column-provider.c:25
 msgid "Dimensions of the video stream."
 msgstr ""
 
-#: src/column-provider.c:21 src/properties-provider.c:46
+#: src/column-provider.c:28 src/properties-provider.c:62
 msgid "Frame Rate"
 msgstr ""
 
-#: src/column-provider.c:22
+#: src/column-provider.c:29
 msgid "Frame rate of the video stream."
 msgstr ""
 
-#: src/column-provider.c:25 src/properties-provider.c:81
+#: src/column-provider.c:32 src/properties-provider.c:122
 msgid "Total Bit Rate"
 msgstr ""
 
-#: src/column-provider.c:26
+#: src/column-provider.c:33
 msgid "Total bit rate of all streams."
 msgstr ""
 
-#: src/column-provider.c:29 src/properties-provider.c:61
+#: src/column-provider.c:36 src/properties-provider.c:78
 msgid "Audio Bit Rate"
 msgstr ""
 
-#: src/column-provider.c:30
+#: src/column-provider.c:37
 msgid "Bit rate of the audio stream."
 msgstr ""
 
-#: src/column-provider.c:33 src/properties-provider.c:55
+#: src/column-provider.c:40 src/properties-provider.c:71
 msgid "Video Bit Rate"
 msgstr ""
 
-#: src/column-provider.c:34
+#: src/column-provider.c:41
 msgid "Bit rate of the video stream."
 msgstr ""
 
-#: src/properties-provider.c:35
+#: src/properties-provider.c:51
 #, c-format
 msgid "Stream %d -"
 msgstr ""
 
-#: src/properties-provider.c:38
+#: src/properties-provider.c:54
 msgid "Type"
 msgstr ""
 
-#: src/properties-provider.c:39 src/properties-provider.c:40
+#: src/properties-provider.c:55
 msgid "Codec"
 msgstr ""
 
-#: src/properties-provider.c:41
-msgid "Codec Tag"
-msgstr ""
-
-#: src/properties-provider.c:42
-msgid "Codec Profile"
-msgstr ""
-
-#: src/properties-provider.c:49
-msgid "Time Base Real"
-msgstr ""
-
-#: src/properties-provider.c:52
-msgid "Time Base Number"
-msgstr ""
-
 #: src/properties-provider.c:56
-msgid "Color Format"
+msgid "Codec Name"
 msgstr ""
 
 #: src/properties-provider.c:57
+msgid "Codec Tag"
+msgstr ""
+
+#: src/properties-provider.c:60 src/properties-provider.c:77
+msgid "Codec Profile"
+msgstr ""
+
+#: src/properties-provider.c:65
+msgid "Time Base Real"
+msgstr ""
+
+#: src/properties-provider.c:68
+msgid "Time Base Number"
+msgstr ""
+
+#: src/properties-provider.c:72
+msgid "Color Format"
+msgstr ""
+
+#: src/properties-provider.c:73
 msgid "Color Range"
 msgstr ""
 
-#: src/properties-provider.c:58
+#: src/properties-provider.c:74
 msgid "Color Space"
 msgstr ""
 
-#: src/properties-provider.c:59
+#: src/properties-provider.c:75
 msgid "Color Chroma Location"
 msgstr ""
 
-#: src/properties-provider.c:62
+#: src/properties-provider.c:79
 msgid "Channels"
 msgstr ""
 
-#: src/properties-provider.c:63
+#: src/properties-provider.c:80
 msgid "Sample Format"
 msgstr ""
 
-#: src/properties-provider.c:64
+#: src/properties-provider.c:81
 msgid "Sample Rate"
 msgstr ""
 
-#: src/properties-provider.c:78
+#: src/properties-provider.c:98
+msgid "Metadata -"
+msgstr ""
+
+#: src/properties-provider.c:119
 msgid "Format"
 msgstr ""
 
-#: src/properties-provider.c:122
+#: src/properties-provider.c:169
 msgid "AVInfo Properties"
 msgstr ""

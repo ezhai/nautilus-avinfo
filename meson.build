@@ -1,6 +1,6 @@
 project('nautilus-avinfo', 'c',
     default_options : ['buildtype=release', 'prefix=/usr'],
-    version : '0.2.0',
+    version : '0.3.0',
 )
 add_project_arguments('-DG_LOG_DOMAIN="nautilus-avinfo"', language: 'c')
 release = '1'
@@ -30,6 +30,7 @@ deps = [
     dependency('libavcodec'),
     dependency('libavformat'),
     dependency('libavutil'),
+    dependency('gnome-desktop-4'),
     dependency('threads'),
 ]
 

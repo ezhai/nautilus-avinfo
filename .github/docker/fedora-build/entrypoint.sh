@@ -1,15 +1,16 @@
 #!/bin/sh
 
 branch="${1}"
-builddir="$(pwd)"
+version="${2}"
 retcode=0
 
 # Log info
 echo "Current Directory: $(pwd)"
 echo "Current Home: $(echo ~)"
+echo "Current User: $(whoami)"
 echo "Mock Version: $(rpm -q mock)"
 
-# Checkout project
+# Clone project
 git clone https://github.com/ezhai/nautilus-avinfo.git
 cd nautilus-avinfo
 git checkout "${branch}"
@@ -18,19 +19,8 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-# Build project
-meson setup build
-meson compile -C build
-if [[ $? -ne 0 ]]; then
-    echo "Failed to compile"
-    exit 1
-fi
-meson compile -C build rpm-spec
-
-version=$(meson introspect build --projectinfo | jq -r ".version")
-pkgname="nautilus-avinfo-${version}"
-
 # Create an archive from a clean source
+pkgname="nautilus-avinfo-${version}"
 git clone https://github.com/ezhai/nautilus-avinfo.git "${pkgname}/"
 cd "${pkgname}/"
 git checkout "${branch}"
@@ -73,18 +63,17 @@ fi
 # Upload artifacts
 if [[ "${retcode}" -ne 1 ]]; then
     echo "Build successful, uploading artifacts..."
-    mkdir -p /github/rpm/
-    cp $(find SOURCES/ -regex ".*\.tar\.gz") /github/rpm
-    cp $(find SPECS/ -regex ".*\.spec") /github/rpm
-    cp $(find RPMS/ -regex ".*\.src\.rpm") /github/rpm
-    cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/rpm
+    mkdir -p /github/artifacts/
+    cp $(find SOURCES/ -regex ".*\.tar\.gz") /github/artifacts
+    cp $(find SPECS/ -regex ".*\.spec") /github/artifacts
+    cp $(find RPMS/ -regex ".*\.src\.rpm") /github/artifacts
+    cp $(find /var/lib/mock/*/result/ -regex ".*\.rpm") /github/artifacts
 else
     echo "Failed to build RPM, uploading logs..."
-    mkdir -p /github/rpm/
-    cp -r /var/lib/mock/fedora-42-x86_64/result /github/rpm/fedora-42
-    cp -r /var/lib/mock/mageia-9-x86_64/result /github/rpm/mageia-9
-    cp -r /var/lib/mock/opensuse-tumbleweed-x86_64/result /github/rpm/opensuse-tumbleweed
+    mkdir -p /github/artifacts/
+    cp -r /var/lib/mock/fedora-42-x86_64/result /github/artifacts/fedora-42
+    cp -r /var/lib/mock/mageia-9-x86_64/result /github/artifacts/mageia-9
+    cp -r /var/lib/mock/opensuse-tumbleweed-x86_64/result /github/artifacts/opensuse-tumbleweed
 fi
-
 
 exit $retcode

@@ -2,6 +2,7 @@
 
 #include "column-provider.h"
 #include "info-provider.h"
+#include "menu-provider.h"
 #include "properties-provider.h"
 
 #include "avinfo-object.h"
@@ -23,8 +24,7 @@ avinfo_extension_instance_init(AVInfoExtension *object)
 }
 
 void
-avinfo_extension_class_init(AVInfoExtensionClass *class,
-                            gpointer class_data)
+avinfo_extension_class_init(AVInfoExtensionClass *class, gpointer class_data)
 {
     AVInfoExtensionClassData *data = (AVInfoExtensionClassData *)class_data;
     class->lk = data->lk;
@@ -38,6 +38,7 @@ avinfo_extension_register_type(GTypeModule *module, AVInfoExtensionClassData *da
     g_autofree GTypeInfo *info = NULL;
     g_autofree GInterfaceInfo *column_provider_interface_info = NULL;
     g_autofree GInterfaceInfo *info_provider_interface_info = NULL;
+    g_autofree GInterfaceInfo *menu_provider_interface_info = NULL;
     g_autofree GInterfaceInfo *properties_provider_interface_info = NULL;
 
     info = g_new0(GTypeInfo, 1);
@@ -47,26 +48,29 @@ avinfo_extension_register_type(GTypeModule *module, AVInfoExtensionClassData *da
     info->instance_size = sizeof (AVInfoExtension);
     info->instance_init = (GInstanceInitFunc)avinfo_extension_instance_init;
 
-	avinfo_extension_type = g_type_module_register_type(module,
-                                                        G_TYPE_OBJECT,
-                                                        "AVInfoExtension",
-                                                        info, 0);
+	avinfo_extension_type = g_type_module_register_type(module, G_TYPE_OBJECT, "AVInfoExtension", info, 0);
     
     column_provider_interface_info = g_new0(GInterfaceInfo, 1);
-    column_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_extension_column_provider_interface_init;
+    column_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_column_provider_interface_init;
 
     info_provider_interface_info = g_new0(GInterfaceInfo, 1);
-    info_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_extension_info_provider_interface_init;
+    info_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_info_provider_interface_init;
+
+    menu_provider_interface_info = g_new0(GInterfaceInfo, 1);
+    menu_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_menu_provider_interface_init;
 
     properties_provider_interface_info = g_new0(GInterfaceInfo, 1);
-    properties_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_extension_properties_model_provider_interface_init;
-    
+    properties_provider_interface_info->interface_init = (GInterfaceInitFunc)avinfo_properties_model_provider_interface_init;
+
     g_type_module_add_interface(module, avinfo_extension_type, 
                                 NAUTILUS_TYPE_COLUMN_PROVIDER,
                                 column_provider_interface_info);
     g_type_module_add_interface(module, avinfo_extension_type, 
                                 NAUTILUS_TYPE_INFO_PROVIDER,
                                 info_provider_interface_info);
+    g_type_module_add_interface(module, avinfo_extension_type,
+                                NAUTILUS_TYPE_MENU_PROVIDER,
+                                menu_provider_interface_info);
     g_type_module_add_interface(module, avinfo_extension_type,
                                 NAUTILUS_TYPE_PROPERTIES_MODEL_PROVIDER,
                                 properties_provider_interface_info);
