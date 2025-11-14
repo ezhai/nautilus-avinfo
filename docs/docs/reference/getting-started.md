@@ -21,6 +21,14 @@ nautilus -q                 # terminate existing nautilus processes
 nautilus                    # start nautilus from the CLI
 ```
 
+## Required Packages
+
+The exact packages needed for development differ based on distro. As an example, the required packages for Arch Linux are the following.
+
+```
+pacman -Syu meson nautilus ffmpeg gnome-desktop libnautilus-extension python python-jinja
+```
+
 ## Resources
 
 The following resources may be of interest if you want to work on Nautilus extensions.

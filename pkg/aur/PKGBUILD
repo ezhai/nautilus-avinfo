@@ -9,20 +9,18 @@ arch=("i686" "x86_64" "aarch64")
 license=('GPL-3.0')
 options=('!debug')
 source=("https://github.com/ezhai/nautilus-avinfo/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-makedepends=('meson' 'libnautilus-extension' 'python' 'python-jinja')
+makedepends=('meson' 'libnautilus-extension' 'python')
 depends=('nautilus>=43' 'gnome-desktop' 'ffmpeg')
 sha256sums=('SKIP')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
-
     meson setup build
     meson compile -C build
 }
 
 package() {
     cd "${srcdir}/${pkgname}-${pkgver}"
-
     meson install -C build --destdir "${pkgdir}"
 }
 

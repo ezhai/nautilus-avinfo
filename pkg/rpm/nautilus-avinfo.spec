@@ -32,17 +32,17 @@ meson compile -C build
 %{_datadir}/locale/*/LC_MESSAGES/nautilus-avinfo.mo
 
 %changelog
-* xxx xxx xx 2025 Eric Zhai <ezhai.dev@gmail.com> - 0.3.0-1
+* Fri Nov 13 2025 Eric Zhai <ezhai.dev@gmail.com> - 0.3.0-1
 - add thumbnail refresh button to context menu
 
 * Tue Sep 30 2025 Eric Zhai <ezhai.dev@gmail.com> - 0.2.0-1
 - cache stream metadata in xattrs
 
 * Fri Aug 30 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.1.1-2
-- install translation files
+- add translation files
 
 * Fri Aug 23 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.1.1-1
 - fix segfault when ffmpeg fails to read media file info
 
 * Mon Feb 26 2024 Eric Zhai <ezhai.dev@gmail.com> - 0.1.0-1
-- initial release
+- initial RPM package

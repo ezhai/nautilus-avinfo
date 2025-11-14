@@ -1,7 +1,7 @@
 #!/bin/sh
 
 branch="${1}"
-builddir="$(pwd)"
+version="${2}"
 retcode=0
 
 # Log info
@@ -19,19 +19,8 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-# Build project
-meson setup build
-meson compile -C build
-if [[ $? -ne 0 ]]; then
-    echo "Failed to compile"
-    exit 1
-fi
-meson compile -C build rpm-spec
-
-version=$(meson introspect build --projectinfo | jq -r ".version")
-pkgname="nautilus-avinfo-${version}"
-
 # Create an archive from a clean source
+pkgname="nautilus-avinfo-${version}"
 git clone https://github.com/ezhai/nautilus-avinfo.git "${pkgname}/"
 cd "${pkgname}/"
 git checkout "${branch}"
@@ -86,6 +75,5 @@ else
     cp -r /var/lib/mock/mageia-9-x86_64/result /github/artifacts/mageia-9
     cp -r /var/lib/mock/opensuse-tumbleweed-x86_64/result /github/artifacts/opensuse-tumbleweed
 fi
-
 
 exit $retcode

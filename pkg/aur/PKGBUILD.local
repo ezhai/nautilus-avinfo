@@ -8,21 +8,19 @@ url="https://github.com/ezhai/nautilus-avinfo"
 arch=("i686" "x86_64" "aarch64")
 license=('GPL-3.0')
 options=('!debug')
-source=("${pkgname}.tar.gz")
-makedepends=('meson' 'libnautilus-extension' 'python' 'python-jinja')
+source=("${pkgname}-${pkgver}.tar.gz")
+makedepends=('meson' 'libnautilus-extension' 'python')
 depends=('nautilus>=43' 'gnome-desktop' 'ffmpeg')
 sha256sums=('SKIP')
 
 build() {
-    cd "${srcdir}/${pkgname}"
-
+    cd "${srcdir}/${pkgname}-${pkgver}"
     meson setup build
     meson compile -C build
 }
 
 package() {
-    cd "${srcdir}/${pkgname}"
-
+    cd "${srcdir}/${pkgname}-${pkgver}"
     meson install -C build --destdir "${pkgdir}"
 }
 

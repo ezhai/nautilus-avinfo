@@ -26,9 +26,6 @@ jobs:
     runs-on: ubuntu-22.04
     needs: build-version
     steps:
-      - name: print-version
-        run: |
-          echo "Value from job1: ${{ needs.build-version.outputs.version }}"
       - name: checkout
         uses: actions/checkout@v4
       - name: apt-install
@@ -36,7 +33,10 @@ jobs:
       - name: docker-build
         run: docker build .github/docker/fedora-build -t fedora-build
       - name: docker-run
-        run: docker run --privileged --cap-add=SYS_ADMIN -v ${{ github.workspace }}:/github fedora-build ${{ github.ref_name }}
+        run: |
+          docker run --privileged --cap-add=SYS_ADMIN \
+            -v ${{ github.workspace }}:/github \
+            fedora-build ${{ github.ref_name }} ${{ needs.build-version.outputs.version }}
       - name: upload
         if: always()
         uses: actions/upload-artifact@v4
@@ -53,7 +53,10 @@ jobs:
       - name: docker-build
         run: docker build .github/docker/arch-build -t arch-build
       - name: docker-run
-        run: docker run --privileged -v ${{ github.workspace }}:/github arch-build ${{ github.ref_name }}
+        run: |
+          docker run --privileged \
+          -v ${{ github.workspace }}:/github \
+          arch-build ${{ github.ref_name }} ${{ needs.build-version.outputs.version }}
       - name: upload
         if: always()
         uses: actions/upload-artifact@v4

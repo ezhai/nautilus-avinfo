@@ -1,7 +1,7 @@
 #!/bin/sh
 
 branch="${1}"
-builddir="$(pwd)"
+version="${2}"
 retcode=0
 
 # Log info
@@ -17,9 +17,9 @@ if [[ $? -ne 0 ]]; then
     echo "Branch \"${branch}\" does not exist"
     exit 1
 fi
-pkgname="nautilus-avinfo"
 
 # Create an archive from a clean source
+pkgname="nautilus-avinfo-${version}"
 git clone https://github.com/ezhai/nautilus-avinfo.git "${pkgname}/"
 cd "${pkgname}/"
 git checkout "${branch}"
